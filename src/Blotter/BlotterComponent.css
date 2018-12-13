@@ -1,19 +1,30 @@
 .gridViewContainer {
-    height: 98VH;
+    height: 96VH;
     overflow: scroll;
 }
 
+.gridHeaderViewContainer {
+    overflow: hidden;
+    display: flex;
+    background-color: rgb(34, 122, 138);
+    height: 2em;
+    color: white;
+}
+
 .gridRow {
-    display: flex
+    display: flex;
+    border: 1px solid darkgray;    
 }
 
 .gridRow:nth-child(even) {
-    background-color: darkslategrey;
+    background-color: rgb(250, 250, 250);
 }
 
 .gridCell {
-    width: 200px;
+    min-width: 200px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: default;
+    margin: auto 0 auto 0;
 }

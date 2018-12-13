@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactList from 'react-list';
 import { randomData } from '../sampleData';
 import './BlotterComponent.css';
+import BlotterHeaderContainer from './BlotterHeaderContainer';
 
 export default class BlotterComponent extends Component {
     constructor() {
@@ -16,20 +17,29 @@ export default class BlotterComponent extends Component {
         this.divClick();
     }
 
+    handleScroll() {
+        document.getElementById('grid_header_container').scrollLeft = document.getElementById('grid_body_container').scrollLeft;
+    }
+
     divClick() {
-        const that = this, multiplier = 1000;
-        let randData;
-        for (let i = 0; i < randomData.length*multiplier; i++) {
-            randData = randomData[i%randomData.length];
-            randData.serialOrder = i;
+        const that = this, multiplier = 500;
+        let randData, j = 0;
+        for (let i = 0; i < randomData.length * multiplier; i++) {
+            randData = { ...randomData[i % randomData.length] };
+            randData.serialOrder = j;
+            j++;
             that.props.divClick(randData);
         }
-        console.log('gridData',this.props.gridData);
-        
-        console.log('Data length',randomData.length*multiplier);
-        setInterval(()=>{
+        console.log('gridData', this.props.gridData);
+
+        console.log('Data length', randomData.length * multiplier);
+        setInterval(() => {
             this.props.updateRandPrice()
-        },0.01)
+            // randData = {...randomData[j%randomData.length]};
+            // randData.serialOrder = j;
+            // j++;
+            // that.props.divClick(randData);
+        }, 0.001)
     }
 
     renderItemView(index, k) {
@@ -38,18 +48,23 @@ export default class BlotterComponent extends Component {
         const dataKeys = Object.keys(data);
 
         return <div key={k} className="gridRow">
-            {dataKeys.map((val, i) => <div key={i} className="gridCell">{data[val]}</div>)}
+            {dataKeys.map((val, i) => <div key={i} className="gridCell">
+                {`${data[val]}`}
+            </div>)}
         </div>
     }
 
     render() {
-        return <div className="gridViewContainer">
-            <ReactList ref='reactlist'
-                itemRenderer={this.renderItemView}
-                length={this.props.gridData.dataSource.length}
-                // minSize={30}
-                type='uniform'
-            />
+        return <div>
+            <BlotterHeaderContainer />
+            <div id='grid_body_container' className="gridViewContainer" onScroll={this.handleScroll}>
+                <ReactList ref='reactlist'
+                    itemRenderer={this.renderItemView}
+                    length={this.props.gridData.dataSource.length}
+                    // minSize={30}
+                    type='uniform'
+                />
+            </div>
         </div>
     }
 }

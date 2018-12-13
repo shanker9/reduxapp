@@ -1,7 +1,7 @@
-import * as gridData from '../Blotter/BlotterReducers';
+import * as blotterData from '../Blotter/BlotterReducers';
 
 const reducers = Object.assign({},
-    gridData
+    blotterData
 );
 
 export default reducers;
