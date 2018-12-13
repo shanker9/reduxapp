@@ -3,7 +3,7 @@ import BlotterComponent from './BlotterComponent';
 
 const mapStateToProps = (state) => {
     // console.log(state);
-    
+
     return {
         gridData: state.gridData
     }
@@ -14,8 +14,8 @@ const mapDispatchToProps = (dispatch) => {
         divClick: randData => {
             dispatch({ type: 'RND', payload: { randData: randData } });
         },
-        updateRandPrice : randPrice => {
-            dispatch({type : 'RND_PRICE',payload : `$${(Math.random()*3000).toFixed(2)}` })
+        updateRandPrice: timestamp => {
+            dispatch({ type: 'RND_PRICE', payload: { price: `$${(Math.random() * 3000).toFixed(2)}`, timestamp: timestamp } })
         }
     }
 }

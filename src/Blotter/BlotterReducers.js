@@ -9,7 +9,9 @@ export const gridData = function(state = { dataSource : [], headerDataSource : [
 
         case 'RND_PRICE':
             newState = Object.assign({},state);
-            newState.dataSource[Math.floor(Math.random()*newState.dataSource.length)].balance = action.payload;
+            let object = newState.dataSource[Math.floor(Math.random()*newState.dataSource.length)];
+            object.balance = action.payload.price;
+            object.timestamp = action.payload.timestamp;
             break;
             
         default:

@@ -22,11 +22,11 @@ export default class BlotterComponent extends Component {
     }
 
     divClick() {
-        const that = this, multiplier = 500;
+        const that = this, multiplier = 1000;
         let randData, j = 0;
         for (let i = 0; i < randomData.length * multiplier; i++) {
             randData = { ...randomData[i % randomData.length] };
-            randData.serialOrder = j;
+            randData.timestamp = this.getLocalTime(new Date(Date.now()));
             j++;
             that.props.divClick(randData);
         }
@@ -34,12 +34,16 @@ export default class BlotterComponent extends Component {
 
         console.log('Data length', randomData.length * multiplier);
         setInterval(() => {
-            this.props.updateRandPrice()
+            this.props.updateRandPrice(this.getLocalTime(new Date(Date.now())))
             // randData = {...randomData[j%randomData.length]};
             // randData.serialOrder = j;
             // j++;
             // that.props.divClick(randData);
         }, 0.001)
+    }
+
+    getLocalTime(dateObject){
+        return `${dateObject.getHours()}:${dateObject.getMinutes()}:${dateObject.getSeconds()}`;
     }
 
     renderItemView(index, k) {
