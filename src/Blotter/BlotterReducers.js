@@ -14,6 +14,11 @@ export const gridData = function (state = { dataSource: [] }, action) {
             object.timestamp = action.payload.timestamp;
             break;
 
+        case 'INITIAL_SOW_DATA':
+            newState = Object.assign({}, state);
+            console.log('payload', action.payload);
+            break;
+
         default:
             newState = state;
             break;

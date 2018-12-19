@@ -1,0 +1,32 @@
+{
+    "HYD-DataCenter1": {
+        "serverIP": "192.168.0.145",
+        "serverPort": "9008",
+        "active": true
+    },
+    "NoWifi": {
+        "serverIP": "192.168.3.1",
+        "serverPort": "9008",
+        "active": false
+    },
+    "HYD-DataCenter2": {
+        "serverIP": "192.168.0.119",
+        "serverPort": "9008",
+        "active": false
+    },
+    "WithWifi": {
+        "serverIP": "192.168.86.68",
+        "serverPort": "9008",
+        "active": false
+    },
+    "HYD-Laptop": {
+        "serverIP": "192.168.0.108",
+        "serverPort": "9008",
+        "active": false
+    },
+    "Charlotte": {
+        "serverIP": "66.57.26.94",
+        "serverPort": "9008",
+        "active": false
+    }
+}

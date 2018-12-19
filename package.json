@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "amps": "^5.2.4-0.642095.7546bab",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-list": "^0.8.10",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "worker-loader": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

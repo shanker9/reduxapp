@@ -10,11 +10,13 @@ export default class BlotterComponent extends Component {
 
         /** Method bindings */
         this.divClick = this.divClick.bind(this);
+        this.getAmpsData = this.getAmpsData.bind(this);
         this.renderItemView = this.renderItemView.bind(this);
     }
 
     componentDidMount() {
-        this.divClick();
+        // this.divClick();
+        this.getAmpsData();
     }
 
     handleScroll() {
@@ -22,7 +24,7 @@ export default class BlotterComponent extends Component {
     }
 
     divClick() {
-        const that = this, multiplier = 1000;
+        const that = this, multiplier = 1;
         let randData, j = 0;
         for (let i = 0; i < randomData.length * multiplier; i++) {
             randData = { ...randomData[i % randomData.length] };
@@ -44,6 +46,10 @@ export default class BlotterComponent extends Component {
 
     getLocalTime(dateObject){
         return `${dateObject.getHours()}:${dateObject.getMinutes()}:${dateObject.getSeconds()}`;
+    }
+
+    getAmpsData(){
+        this.props.subscribeToAmps();
     }
 
     renderItemView(index, k) {
