@@ -1,3 +1,9 @@
+let shouldUpdate = false;
+(function () {
+    setInterval(function () {
+        shouldUpdate = true;
+    }, 5000);
+})();
 
 export const gridData = function (state = { dataSource: [] }, action) {
     let newState;
@@ -16,13 +22,25 @@ export const gridData = function (state = { dataSource: [] }, action) {
 
         case 'INITIAL_SOW_DATA':
             newState = Object.assign({}, state);
-            console.log('payload', action.payload);
+            console.log('payload', Array.from(action.payload.values()));
+            newState.dataSource = Array.from(action.payload.values());
+            break;
+
+        case 'UPDATE':
+            if (shouldUpdate) {
+                newState = Object.assign({}, state);
+                shouldUpdate = false;
+            } else {
+                newState = state;
+            }
+            newState.dataSource.find(rec => rec.rowKey === action.payload.rowKey).u = action.payload.data;
             break;
 
         default:
             newState = state;
             break;
     }
+
     return newState;
 }
 

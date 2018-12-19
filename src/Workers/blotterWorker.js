@@ -21,6 +21,7 @@ self.onmessage = function (event) {
             messageHandler = event.data.isGroupedView ? ampsAggregateMessageHandler : ampsMessageHandler;
             bookmark = event.data.command.bookmark;
             controller.connectAndSubscribe(messageHandler, subscriptionsDetailsMessageHandler, event.data.command);
+            console.time('sow');
             break;
 
         case 'newQuery':
@@ -31,6 +32,7 @@ self.onmessage = function (event) {
 
         case 'updateVisibleRange':
             visibleRange = event.data.visibleRange;
+            console.log('New visible range', visibleRange);
             break;
 
         default:
@@ -135,6 +137,7 @@ let ampsMessageHandler = function (message) {
             break;
 
         case 'group_end':
+        console.timeEnd('sow');
             self.postMessage({ datatype: 'sow_end', eventData: fullDataMap });
             break;
 
@@ -142,7 +145,9 @@ let ampsMessageHandler = function (message) {
             let val = fullDataMap.get(messageKey);
             if (val) {
                 mergeJsonObjects(val.data, messageData);
-                self.postMessage({ datatype: 'update', eventData: val });
+                if(visibleRange.find(visrec => visrec.rowKey === val.rowKey)){
+                    self.postMessage({ datatype: 'update', eventData: val });
+                }
             }
             break;
         default:
