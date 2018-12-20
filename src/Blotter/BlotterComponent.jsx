@@ -3,8 +3,8 @@ import ReactList from 'react-list';
 import { randomData } from '../sampleData';
 import './BlotterComponent.css';
 import BlotterHeaderContainer from './BlotterHeaderContainer';
+import BlotterRowContainer from './BlotterRowContainer';
 import AppConstants from '../Amps/AppConstansts';
-import format from 'format-number';
 
 export default class BlotterComponent extends Component {
     constructor() {
@@ -69,45 +69,47 @@ export default class BlotterComponent extends Component {
     }
 
     renderItemView(index, k) {
-        const data = this.props.gridData.dataSource[index].data;
+        const rowState = this.props.gridData.dataSource[index];
+        // const rowData = rowState.data;
         const headerData = this.props.gridHeaderData.headerDataSource;
 
-        return <div key={k} className="gridRow">
-            {headerData.map((val, i) => <div key={i} className="gridCell">
-                {!data[val.columnvalue] || this.FORMAT_VALUE(data[val.columnvalue],val.properties.columnformatter)}
-            </div>)}
-        </div>
+        return <BlotterRowContainer key={k} id={rowState.rowKey} />
+        // return <div key={k} id={data.rowKey} className="gridRow">
+        //     {headerData.map((val, i) => <div key={i} className="gridCell">
+        //         {!data[val.columnvalue] || this.FORMAT_VALUE(data[val.columnvalue],val.properties.columnformatter)}
+        //     </div>)}
+        // </div>
     }
 
-    FORMAT_VALUE = (value, type) => {
-        let myFormat, result;
-        switch (type) {
-            case AppConstants.columnformatter.PRICE:
-                myFormat = format({ prefix: '$', integerSeparator: ',' });
-                result = myFormat(value.toFixed(2));
-                break;
+    // FORMAT_VALUE = (value, type) => {
+    //     let myFormat, result;
+    //     switch (type) {
+    //         case AppConstants.columnformatter.PRICE:
+    //             myFormat = format({ prefix: '$', integerSeparator: ',' });
+    //             result = myFormat(value.toFixed(2));
+    //             break;
     
-            case AppConstants.columnformatter.NUMBER:
-                myFormat = format({ integerSeparator: ',' });
-                result = myFormat(value);
-                break;
+    //         case AppConstants.columnformatter.NUMBER:
+    //             myFormat = format({ integerSeparator: ',' });
+    //             result = myFormat(value);
+    //             break;
     
-            case AppConstants.columnformatter.PERCENTAGE:
-                myFormat = format({ suffix: '%' });
-                result = myFormat((value * 100).toFixed(2));
-                break;
+    //         case AppConstants.columnformatter.PERCENTAGE:
+    //             myFormat = format({ suffix: '%' });
+    //             result = myFormat((value * 100).toFixed(2));
+    //             break;
     
-            case AppConstants.columnformatter.DATE:
-                result = (new Date(value * 1000)).toLocaleString();
-                break;
+    //         case AppConstants.columnformatter.DATE:
+    //             result = (new Date(value * 1000)).toLocaleString();
+    //             break;
     
-            default:
-                result = value;
-                break;
-        }
+    //         default:
+    //             result = value;
+    //             break;
+    //     }
     
-        return result;
-    }
+    //     return result;
+    // }
 
     render() {
         return <div>
