@@ -3,8 +3,8 @@ import BlotterRowComponent from './BlotterRowComponent';
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        data : state.gridData.dataSource.find(i => i.rowKey === ownProps.id).data,
-        rowState : state.gridData.dataSource.find(i => i.rowKey === ownProps.id),
+        rowState : state.gridData.dataSource.get(ownProps.id),
+        rowData : state.gridData.dataSource.get(ownProps.id),
         headerData : state.gridHeaderData.headerDataSource
     }
 }

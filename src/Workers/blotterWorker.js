@@ -25,9 +25,9 @@ self.onmessage = function (event) {
             break;
 
         case 'newQuery':
-            event.data.messageType === 'protobuf' ? 
-            controller.connectAndSubscribeForProtobuf(queryMessageHandlerProtobuf, subId => console.log(subId), event.data.command) :
-            controller.connectAndSubscribe(queryMessageHandlerJson, subId => console.log(subId), event.data.command);
+            event.data.messageType === 'protobuf' ?
+                controller.connectAndSubscribeForProtobuf(queryMessageHandlerProtobuf, subId => console.log(subId), event.data.command) :
+                controller.connectAndSubscribe(queryMessageHandlerJson, subId => console.log(subId), event.data.command);
             break;
 
         case 'updateVisibleRange':
@@ -137,15 +137,16 @@ let ampsMessageHandler = function (message) {
             break;
 
         case 'group_end':
-        console.timeEnd('sow');
+            console.timeEnd('sow');
             self.postMessage({ datatype: 'sow_end', eventData: fullDataMap });
+            visibleRange = Array.from(fullDataMap.keys()).slice(0,30);
             break;
 
         case 'p':
             let val = fullDataMap.get(messageKey);
             if (val) {
                 mergeJsonObjects(val.data, messageData);
-                if(visibleRange.find(visrec => visrec.rowKey === val.rowKey)){
+                if (visibleRange.find(visreckey => visreckey === val.rowKey)) {
                     self.postMessage({ datatype: 'update', eventData: val });
                 }
             }

@@ -9,10 +9,10 @@
     background-color: rgb(103, 155, 207);
     height: 2.5em;
     color: white;
+    margin-right: 16px;
 }
 
 .gridRow {
-    display: flex;
     /* border: 1px solid rgb(240, 240, 240); */
     height: 32px;
 }
@@ -22,6 +22,8 @@
 }
 
 .gridCell {
+    background-color: inherit;
+    display: table-cell;
     min-width: 200px;
     white-space: nowrap;
     text-overflow: ellipsis;

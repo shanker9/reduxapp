@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactList from 'react-list';
 import { randomData } from '../sampleData';
+import './BlotterComponent.css';
 
 export default class BlotterHeaderComponent extends Component {
     constructor() {
