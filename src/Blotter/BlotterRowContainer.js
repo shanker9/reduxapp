@@ -4,7 +4,6 @@ import BlotterRowComponent from './BlotterRowComponent';
 const mapStateToProps = (state, ownProps) => {
     return {
         rowState : state.gridData.dataSource.get(ownProps.id),
-        rowData : state.gridData.dataSource.get(ownProps.id),
         headerData : state.gridHeaderData.headerDataSource
     }
 }

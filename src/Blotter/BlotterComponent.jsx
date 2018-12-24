@@ -38,7 +38,7 @@ export default class BlotterComponent extends Component {
     }
 
     renderItemView(index, k) {
-        return <BlotterRowContainer key={k} id={this.props.gridData.dataSource.get(this.props.gridData.dataSourceKeys[index]).rowKey} />
+        return <BlotterRowContainer key={k} id={this.props.gridData.dataSourceKeys[index]} />
     }
 
     render() {
