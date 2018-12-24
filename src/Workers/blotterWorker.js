@@ -1,5 +1,6 @@
 /* eslint-disable */
 import AmpsControllerSingleton from '../Amps/AmpsController.js';
+const WorkerThread = require('worker-loader!../Workers/sample.worker.js');
 
 let currentSubscriptionId, controller, fullDataMap, tempDataMap, updateSet, visibleRange, bookmark;
 
@@ -11,9 +12,16 @@ let currentSubscriptionId, controller, fullDataMap, tempDataMap, updateSet, visi
     controller = AmpsControllerSingleton.getInstance();
 })();
 
+const sampleWorker = new WorkerThread();
+
 self.onmessage = function (event) {
 
     let messageHandler;
+    sampleWorker.postMessage({ type: 'getval' })
+    sampleWorker.onmessage = (event) => {
+        console.log('reply from sample worker', event.data.eventdata);
+    }
+
 
     switch (event.data.type) {
         case 'newSubscription':
@@ -139,7 +147,7 @@ let ampsMessageHandler = function (message) {
         case 'group_end':
             console.timeEnd('sow');
             self.postMessage({ datatype: 'sow_end', eventData: fullDataMap });
-            visibleRange = Array.from(fullDataMap.keys()).slice(0,30);
+            visibleRange = Array.from(fullDataMap.keys()).slice(0, 30);
             break;
 
         case 'p':
