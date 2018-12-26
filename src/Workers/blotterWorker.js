@@ -1,6 +1,7 @@
 /* eslint-disable */
 import AmpsControllerSingleton from '../Amps/AmpsController.js';
-const WorkerThread = require('worker-loader!../Workers/sample.worker.js');
+const WorkerThread = require('worker-loader!../Workers/AmpsReader.worker.js');
+// import Wrapper_pb from '../proto_js/Wrapper_pb';
 
 let currentSubscriptionId, controller, fullDataMap, tempDataMap, updateSet, visibleRange, bookmark;
 
@@ -9,6 +10,7 @@ let currentSubscriptionId, controller, fullDataMap, tempDataMap, updateSet, visi
     tempDataMap = new Map();
     updateSet = new Set();
     bookmark = null;
+    visibleRange = [];
     controller = AmpsControllerSingleton.getInstance();
 })();
 
@@ -17,19 +19,15 @@ const sampleWorker = new WorkerThread();
 self.onmessage = function (event) {
 
     let messageHandler;
-    sampleWorker.postMessage({ type: 'getval' })
-    sampleWorker.onmessage = (event) => {
-        console.log('reply from sample worker', event.data.eventdata);
-    }
-
 
     switch (event.data.type) {
         case 'newSubscription':
             if (currentSubscriptionId) controller.unsubscribe(currentSubscriptionId);
             messageHandler = event.data.isGroupedView ? ampsAggregateMessageHandler : ampsMessageHandler;
             bookmark = event.data.command.bookmark;
-            controller.connectAndSubscribe(messageHandler, subscriptionsDetailsMessageHandler, event.data.command);
-            console.time('sow');
+            sampleWorker.onmessage = messageHandler;
+            sampleWorker.postMessage({ type: 'subscribe', command: event.data.command });
+            // controller.connectAndSubscribe(messageHandler, subscriptionsDetailsMessageHandler, event.data.command);
             break;
 
         case 'newQuery':
@@ -48,7 +46,7 @@ self.onmessage = function (event) {
     }
 };
 
-let timer, updateTimer, newRowsTimer, newRowsTimerCleared, updateTimerCleared;
+let timer, updateTimer;
 let msgPerSec, val, newVal, lastMessage, counter = 0, counterPerSec = 0;
 let ampsAggregateMessageHandler = function (message) {
 
@@ -58,8 +56,6 @@ let ampsAggregateMessageHandler = function (message) {
             tempDataMap.clear();
             updateSet.clear();
             clearArray(visibleRange);
-            newRowsTimerCleared = true;
-            updateTimerCleared = true;
             clearInterval(updateTimer);
             console.time('sow');
             msgPerSec = 0;
@@ -122,47 +118,88 @@ let ampsAggregateMessageHandler = function (message) {
 
 };
 
-let ampsMessageHandler = function (message) {
+let updateQueue = new Map();
+let message;
+let ampsMessageHandler = function (event) {
 
-    let messageType = message.c, messageKey = message.k, messageData = message.data;
+    if (event.data.type === 'u') {
+        processUpdates(event.data.updates);
+    } else {
+        message = event.data.message;
+        switch (message.c) {
+            case 'group_begin':
+                // fullDataMap.clear();
 
-    switch (messageType) {
-        case 'group_begin':
-            fullDataMap.clear();
-            break;
+                fullDataMap.clear();
+                tempDataMap.clear();
+                updateSet.clear();
+                clearArray(visibleRange);
+                clearInterval(updateTimer);
+                console.time('sow');
 
-        case 'sow':
-            fullDataMap.set(messageKey, {
-                rowKey: messageKey,
-                isAggregatedRow: false,
-                data: messageData,
-                childData: null,
-                showChildData: false,
-                isSelected: false,
-                groupKey: null,
-                grouplevel: 0
-            });
-            break;
+                updateQueue.clear();
+                // clearInterval(msgPerSecTimer);
+                break;
 
-        case 'group_end':
-            console.timeEnd('sow');
-            self.postMessage({ datatype: 'sow_end', eventData: fullDataMap });
-            visibleRange = Array.from(fullDataMap.keys()).slice(0, 30);
-            break;
+            case 'sow':
+                fullDataMap.set(message.k, {
+                    rowKey: message.k,
+                    isAggregatedRow: false,
+                    data: message.data,
+                    childData: null,
+                    showChildData: false,
+                    isSelected: false,
+                    groupKey: null,
+                    grouplevel: 0
+                });
+                break;
 
-        case 'p':
-            let val = fullDataMap.get(messageKey);
-            if (val) {
-                mergeJsonObjects(val.data, messageData);
-                if (visibleRange.find(visreckey => visreckey === val.rowKey)) {
-                    self.postMessage({ datatype: 'update', eventData: val });
-                }
-            }
-            break;
-        default:
-            break;
+            case 'group_end':
+                console.timeEnd('sow');
+                self.postMessage({ datatype: 'sow_end', eventData: fullDataMap });
+                visibleRange = Array.from(fullDataMap.keys()).slice(0, 30);
+                // updateTimer = setInterval(processUpdatesAndNewRows, 1000);
+                // msgPerSecTimer = setInterval(printMsgPerSec,1000);
+                break;
+
+            case 'p':
+                // let val = fullDataMap.get(messageKey);
+                // if (val) {
+                //     mergeJsonObjects(val.data, messageData);
+                //     if (visibleRange.find(visreckey => visreckey === val.rowKey)) {
+                //         self.postMessage({ datatype: 'update', eventData: val });
+                //     }
+                // }
+
+                updateQueue.set(message.k, message);
+                // msgPerSec++;
+                // val = fullDataMap.get(message.k);
+                // if (val) {
+                //     mergeJsonObjects(val.data, message.data);
+                //     updateSet.add(message.k);
+                // } else {
+                //     newVal = tempDataMap.get(message.k);
+                //     if (newVal) {
+                //         mergeJsonObjects(newVal.data, message.data);
+                //     } else {
+                //         let newItem = {
+                //             rowKey: message.k,
+                //             isAggregatedRow: false,
+                //             data: message.data,
+                //             childData: null,
+                //             showChildData: false,
+                //             isSelected: false,
+                //             groupKey: null,
+                //             grouplevel: 0
+                //         }
+                //         tempDataMap.set(message.k, newItem);
+                //     }
+                // }
+                break;
+            default:
+                break;
+        }
     }
-
 };
 
 let printMsgPerSec = function () {
@@ -172,16 +209,48 @@ let printMsgPerSec = function () {
 
 let processUpdatesAndNewRows = function () {
     processUpdates();
-    postNewRowsData();
+    // postNewRowsData();
 }
 
-let processUpdates = function () {
-    visibleRange.forEach(item => {
-        if (updateSet.has(item.rowKey)) {
-            self.postMessage({ datatype: 'agg_update', eventData: fullDataMap.get(item.rowKey) });
+let processUpdates = function (updateQueue) {
+    // visibleRange.forEach(item => {
+    //     if (updateSet.has(item)) {
+    //         self.postMessage({ datatype: 'update', eventData: fullDataMap.get(item) });
+    //     }
+    // })
+    // updateSet.clear();
+    // console.time('up');
+    // console.log('qSize',updateQueue.size);
+    updateQueue.forEach((message, messageKey) => {
+        if (fullDataMap.has(messageKey)) {
+            mergeJsonObjects(fullDataMap.get(messageKey).data, message.data);
+        } else {
+            tempDataMap.set(messageKey, {
+                rowKey: messageKey,
+                isAggregatedRow: false,
+                data: message.data,
+                childData: null,
+                showChildData: false,
+                isSelected: false,
+                groupKey: null,
+                grouplevel: 0
+            })
         }
     })
-    updateSet.clear();
+
+    if (tempDataMap.size > 0) {
+        self.postMessage({ datatype: 'newaggrows_update', eventData: tempDataMap, bookmark: bookmark });
+        tempDataMap.forEach((data, key) => fullDataMap.set(key, data));
+        tempDataMap.clear();
+    }
+
+    visibleRange.forEach(ri => {
+        if (updateQueue.has(ri)) {
+            self.postMessage({ datatype: 'update', eventData: fullDataMap.get(ri) });
+        }
+    })
+    updateQueue.clear();
+    // console.timeEnd('up');
 }
 
 let postNewRowsData = function () {
@@ -203,6 +272,7 @@ let queryMessageHandlerProtobuf = function (message) {
             protoBufQueryResults.set(message.k, { key: message.k, data: deserializedData.toObject() });
             break;
         case 'group_end':
+            console.timeEnd('query');
             self.postMessage({ datatype: 'query_data', eventData: protoBufQueryResults });
             break;
         default:

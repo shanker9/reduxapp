@@ -29,6 +29,7 @@
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "format-number": "^3.0.0",
     "fs-extra": "7.0.0",
+    "google-protobuf": "^3.6.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",

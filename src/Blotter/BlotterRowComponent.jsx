@@ -53,7 +53,8 @@ export default class BlotterRowComponent extends Component {
     }
 
     rowCellSizeGetter = (index) => {
-        return this.props.headerData[index].properties.columnWidth;
+        // return this.props.headerData[index].properties.columnWidth;
+        return 200;
     }
 
     render() {
@@ -63,12 +64,8 @@ export default class BlotterRowComponent extends Component {
                 itemRenderer={this.renderGridCell}
                 length={this.props.headerData.length}
                 itemSizeGetter={this.rowCellSizeGetter}
-                // minSize={30}
                 type='variable'
             />
-            {/* {this.props.headerData.map((val, i) => <div key={i} className="gridCell">
-                {!this.props.rowState.data || !this.props.rowState.data[val.columnvalue] || this.FORMAT_VALUE(this.props.rowState.data[val.columnvalue], val.properties.columnformatter)}
-            </div>)} */}
         </div>
     }
 }
