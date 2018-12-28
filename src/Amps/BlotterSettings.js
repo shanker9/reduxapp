@@ -11,7 +11,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.STRING_COLUMN,
                 columnformatter: AppConstants.columnformatter.STRING,
-                columnWidth: 180,
+                columnWidth: 220,
                 styleClass: 'stringCell'
             }
         },
@@ -36,7 +36,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },
@@ -48,7 +48,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },
@@ -60,7 +60,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },
@@ -72,7 +72,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },
@@ -84,7 +84,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },
@@ -96,7 +96,7 @@ export default class BlotterSettings {
                 isSortable: true,
                 columnType: AppConstants.columntypes.NUMERIC_COLUMN,
                 columnformatter: AppConstants.columnformatter.PRICE,
-                columnWidth: 120,
+                columnWidth: 150,
                 styleClass: 'numericCell'
             }
         },

@@ -4,6 +4,7 @@ import AppConstants from '../Amps/AppConstansts';
 import format from 'format-number';
 import ReactList from 'react-list';
 import FORMATTER from './CellFormatters';
+import BlotterCellContainer from './BlotterCellContainer';
 
 export default class BlotterRowComponent extends Component {
 
@@ -16,46 +17,21 @@ export default class BlotterRowComponent extends Component {
         this.renderGridCell = this.renderGridCell.bind(this);
     }
 
-    FORMAT_VALUE = (value, type) => {
-        switch (type) {
-            case AppConstants.columnformatter.PRICE:
-                return FORMATTER.PRICE_FORMATTER(value.toFixed(2));
-                break;
-
-            case AppConstants.columnformatter.NUMBER:
-                return FORMATTER.NUMBER_FORMATTER(value);
-                break;
-
-            case AppConstants.columnformatter.PERCENTAGE:
-                return FORMATTER.PERCENT_FORMATTER((value * 100).toFixed(2));
-                break;
-
-            case AppConstants.columnformatter.DATE:
-                return (new Date(value * 1000)).toLocaleString();
-                break;
-
-            default:
-                return value;
-                break;
-        }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.gridDataSourceKeys !== this.props.gridDataSourceKeys;
     }
 
     renderGridCell = (index, k) => {
-        const cellVal = this.rowStateData[this.props.headerData[index].columnvalue];
-        const cellData = !this.rowStateData || !cellVal
-            || this.FORMAT_VALUE(cellVal, this.props.headerData[index].properties.columnformatter)
-        return <div key={k} className="gridCell">
-            {cellData}
-        </div>
+        return <BlotterCellContainer key={k} id={this.props.rowKey} columnconfig={this.props.headerData[index]}/>
     }
 
     rowCellSizeGetter = (index) => {
-        // return this.props.headerData[index].properties.columnWidth;
-        return 200;
+        // console.log('cache size',cache);
+        return this.props.headerData[index].properties.columnWidth;
+        // return 200;
     }
 
     render() {
-        this.rowStateData = this.props.rowState.data;
         return <div className="gridRow">
             <ReactList ref='reactlist'
                 axis='x'
@@ -63,6 +39,7 @@ export default class BlotterRowComponent extends Component {
                 length={this.props.headerData.length}
                 itemSizeGetter={this.rowCellSizeGetter}
                 type='variable'
+                /* threshold={5000} */
             />
         </div>
     }

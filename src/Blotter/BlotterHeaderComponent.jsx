@@ -42,7 +42,7 @@ export default class BlotterHeaderComponent extends Component {
 
     render() {
         return <div id='grid_header_container' key={9999} className="gridHeaderViewContainer">
-            {this.props.headerData.headerDataSource.map((val, i) => <div key={i} className="gridCell">
+            {this.props.headerData.headerDataSource.map((val, i) => <div key={i} className="gridCell" style={{minWidth:val.properties.columnWidth}}>
                 {val.displayname}
             </div>)}
         </div>

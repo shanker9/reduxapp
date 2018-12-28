@@ -1,6 +1,7 @@
 .gridViewContainer {
     height: 92VH;
     overflow: scroll;
+    margin-right: 16px;
 }
 
 .gridHeaderViewContainer {
@@ -14,7 +15,7 @@
 
 .gridRow {
     /* border: 1px solid rgb(240, 240, 240); */
-    height: 32px;
+    height: 40px;
     width: min-content;
 }
 
@@ -25,10 +26,21 @@
 .gridCell {
     background-color: inherit;
     display: table-cell;
-    min-width: 200px;
+    /* min-width: 200px; */
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     cursor: default;
     margin: auto 0 auto 0;
+}
+
+.smoothScroller {
+    z-index: 100;
+    pointer-events: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    will-change: transform;
 }

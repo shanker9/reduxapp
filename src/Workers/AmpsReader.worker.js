@@ -22,7 +22,7 @@ self.onmessage = function (event) {
 
             case 'group_end':
                 self.postMessage({type : 'i', message: message })
-                setInterval(updateTimer, 500);
+                setInterval(updateTimer, 300);
                 break;
 
             case 'p':

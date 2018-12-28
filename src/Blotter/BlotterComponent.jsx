@@ -43,21 +43,20 @@ export default class BlotterComponent extends Component {
     }
 
     renderItemView(index, k) {
-        // return <BlotterRowContainer key={k} id={this.dataSource.get(this.props.gridData.dataSourceKeys[index]).rowKey} />
-        return <BlotterRowContainer key={k} id={this.dataSourceKeys[index]} />
+        return <BlotterRowContainer key={index} id={this.dataSourceKeys[index]} />
     }
 
     render() {
-        // this.dataSource = this.props.gridData.dataSource;
         this.dataSourceKeys = this.props.gridDataSourceKeys;
         return <div>
             <div>Total Records :{this.dataSourceKeys.length}</div>
             <BlotterHeaderContainer />
+            <div className="smoothScroller"/>
             <div id='grid_body_container' className="gridViewContainer" onScroll={this.handleScroll}>
                 <ReactList ref='reactlist'
                     itemRenderer={this.renderItemView}
                     length={this.dataSourceKeys.length}
-                    minSize={30}
+                    /* minSize={30} */
                     type='uniform'
                 />
             </div>
