@@ -8,6 +8,7 @@ export default class BlotterComponent extends Component {
     constructor() {
         super();
         this.timer = null;
+        this.dataSource = null;
         this.dataSourceKeys = null;
 
         /** Method bindings */
@@ -20,9 +21,13 @@ export default class BlotterComponent extends Component {
         this.getAmpsData();
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.gridDataSourceKeys !== this.props.gridDataSourceKeys;
+    }
+
     getVisibleRange() {
         const visibleRange = this.refs.reactlist.getVisibleRange();
-        return this.props.gridData.dataSourceKeys.slice(visibleRange[0], visibleRange[1] + 1);
+        return this.dataSourceKeys.slice(visibleRange[0], visibleRange[1] + 1);
     }
 
     handleScroll() {
@@ -38,17 +43,20 @@ export default class BlotterComponent extends Component {
     }
 
     renderItemView(index, k) {
-        return <BlotterRowContainer key={k} id={this.props.gridData.dataSource.get(this.props.gridData.dataSourceKeys[index]).rowKey} />
+        // return <BlotterRowContainer key={k} id={this.dataSource.get(this.props.gridData.dataSourceKeys[index]).rowKey} />
+        return <BlotterRowContainer key={k} id={this.dataSourceKeys[index]} />
     }
 
     render() {
+        // this.dataSource = this.props.gridData.dataSource;
+        this.dataSourceKeys = this.props.gridDataSourceKeys;
         return <div>
-            <div>Total Records :{this.props.gridData.dataSource.size}</div>
+            <div>Total Records :{this.dataSourceKeys.length}</div>
             <BlotterHeaderContainer />
             <div id='grid_body_container' className="gridViewContainer" onScroll={this.handleScroll}>
                 <ReactList ref='reactlist'
                     itemRenderer={this.renderItemView}
-                    length={this.props.gridData.dataSourceKeys.length}
+                    length={this.dataSourceKeys.length}
                     minSize={30}
                     type='uniform'
                 />

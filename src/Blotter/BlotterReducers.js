@@ -2,7 +2,7 @@ let shouldRefresh = false;
 (function () {
     setInterval(function () {
         shouldRefresh = true;
-    }, 3000);
+    }, 1000);
 })();
 
 let newRowState;
@@ -12,13 +12,22 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
         case 'INITIAL_SOW_DATA':
             newState = { ...state }
             console.log('payload', action.payload);
-            newState.dataSource = new Map(Array.from(action.payload).map(entry => [entry[0], rowRecord(undefined, { type: 'ADD_RECORD', payload: entry[1] })]));
+            // newState.dataSource = new Map(Array.from(action.payload).map(entry => [entry[0], rowRecord(undefined, { type: 'ADD_RECORD', payload: entry[1] })]));
+            newState.dataSource = action.payload;
             newState.dataSourceKeys = Array.from(newState.dataSource.keys());
             break;
 
         case 'UPDATE':
             // newState = shouldRefresh ? Object.assign({}, state) : state;
-            newState = shouldRefresh ?  {...state} : state;
+            // console.timeEnd('render');
+            // newState = shouldRefresh ?  {...state} : state;
+            if(shouldRefresh){
+                console.time('r');
+                newState = {...state};
+            }else{
+                console.timeEnd('r');
+                newState = state;
+            }
             // newState.dataSource.set(action.payload.rowKey, rowRecord(newState.dataSource.get(action.payload.rowKey), action));
             // if (shouldRefresh) {
             newRowState = {...newState.dataSource.get(action.payload.rowKey)}

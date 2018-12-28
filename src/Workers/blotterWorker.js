@@ -221,6 +221,7 @@ let processUpdates = function (updateQueue) {
     // updateSet.clear();
     // console.time('up');
     // console.log('qSize',updateQueue.size);
+    // console.time('rd');    
     updateQueue.forEach((message, messageKey) => {
         if (fullDataMap.has(messageKey)) {
             mergeJsonObjects(fullDataMap.get(messageKey).data, message.data);
@@ -250,7 +251,7 @@ let processUpdates = function (updateQueue) {
         }
     })
     updateQueue.clear();
-    // console.timeEnd('up');
+    // console.timeEnd('rd');    
 }
 
 let postNewRowsData = function () {
