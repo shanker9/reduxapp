@@ -18,7 +18,7 @@ export default class BlotterRowComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        return nextProps.gridDataSourceKeys !== this.props.gridDataSourceKeys;
+        return nextProps.rowState !== this.props.rowState;
     }
 
     renderGridCell = (index, k) => {

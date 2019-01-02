@@ -22,7 +22,7 @@ self.onmessage = function (event) {
 
             case 'group_end':
                 self.postMessage({type : 'i', message: message })
-                setInterval(updateTimer, 300);
+                setInterval(updateTimer, 200);
                 break;
 
             case 'p':
@@ -45,7 +45,7 @@ self.onmessage = function (event) {
 
     const updateTimer = function () {
         if (updateQueue.size > 0) {
-            console.log('qs',updateQueue.size);
+            // console.log('qs',updateQueue.size);
             self.postMessage({type : 'u', updates: updateQueue });
             updateQueue.clear();
         }

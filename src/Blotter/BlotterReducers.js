@@ -2,7 +2,7 @@ let shouldRefresh = false;
 (function () {
     setInterval(function () {
         shouldRefresh = true;
-    }, 500);
+    }, 100);
 })();
 
 let newRowState;
@@ -17,15 +17,16 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
             break;
 
         case 'UPDATE':
-            newState = shouldRefresh ?  {...state} : state;
-            // if(shouldRefresh){
-            //     console.time('r');
-            //     newState = {...state};
-            // }else{
-            //     console.timeEnd('r');
-            //     newState = state;
-            // }
-            newRowState = {...newState.dataSource.get(action.payload.rowKey)}
+            // newState = shouldRefresh ?  {...state} : state;
+            if(shouldRefresh){
+                console.time('r');
+                newState = {...state};
+            }else{
+                console.timeEnd('r');
+                newState = state;
+            }
+            // newRowState = {...newState.dataSource.get(action.payload.rowKey)}
+            newRowState = newState.dataSource.get(action.payload.rowKey)
             newRowState.data = action.payload.data;
             newState.dataSource.set(action.payload.rowKey, newRowState);
 
