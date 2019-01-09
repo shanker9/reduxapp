@@ -1,8 +1,8 @@
 {
     "HYD-DataCenter1": {
-        "serverIP": "192.168.0.145",
+        "serverIP": "192.168.0.133",
         "serverPort": "9008",
-        "active": true
+        "active": false
     },
     "NoWifi": {
         "serverIP": "192.168.3.1",

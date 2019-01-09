@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import BlotterHeaderComponent from './BlotterHeaderComponent';
-import BlotterSettings from '../Amps/BlotterSettings';
+import BlotterSettings from '../../Amps/BlotterSettings';
 
 const mapStateToProps = (state) => {
     // console.log(state);

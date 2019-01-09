@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import './BlotterComponent.css';
-import AppConstants from '../Amps/AppConstansts';
-import format from 'format-number';
+import '../BlotterComponent.css';
 import ReactList from 'react-list';
-import FORMATTER from './CellFormatters';
-import BlotterCellContainer from './BlotterCellContainer';
+import BlotterCellContainer from '../BlotterCell/BlotterCellContainer';
 
 export default class BlotterRowComponent extends Component {
 

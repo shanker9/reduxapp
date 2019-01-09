@@ -1,5 +1,5 @@
 import format from 'format-number';
-import AppConstants from '../Amps/AppConstansts';
+import AppConstants from '../../Amps/AppConstansts';
 
 const FORMATTER = {
     PRICE_FORMATTER: format({ prefix: '$', integerSeparator: ',' }),

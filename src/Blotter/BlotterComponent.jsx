@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactList from 'react-list';
 import './BlotterComponent.css';
-import BlotterHeaderContainer from './BlotterHeaderContainer';
-import BlotterRowContainer from './BlotterRowContainer';
+import BlotterHeaderContainer from './BlotterHeader/BlotterHeaderContainer';
+import BlotterRowContainer from './BlotterRow/BlotterRowContainer';
 
 export default class BlotterComponent extends Component {
     constructor() {
