@@ -2,7 +2,7 @@ let shouldRefresh = false;
 (function () {
     setInterval(function () {
         shouldRefresh = true;
-    }, 300);
+    }, 150);
 })();
 
 let newRowState;
@@ -17,14 +17,14 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
             break;
 
         case 'UPDATE':
-            // newState = shouldRefresh ?  {...state} : state;
-            if(shouldRefresh){
-                console.time('r');
-                newState = {...state};
-            }else{
-                console.timeEnd('r');
-                newState = state;
-            }
+            newState = shouldRefresh ?  {...state} : state;
+            // if(shouldRefresh){
+            //     console.time('r');
+            //     newState = {...state};
+            // }else{
+            //     console.timeEnd('r');
+            //     newState = state;
+            // }
             // newRowState = {...newState.dataSource.get(action.payload.rowKey)}
             newRowState = newState.dataSource.get(action.payload.rowKey)
             newRowState.data = action.payload.data;
@@ -50,8 +50,15 @@ export const gridHeaderData = function (state = { headerDataSource: [] }, action
 
         case 'ADD_COLUMN_DATA':
             newState = { ...state };
-            newState.headerDataSource.push(action.payload.headerData)
+            newState.headerDataSource = [...newState.headerDataSource];
+            newState.headerDataSource.push(action.payload.headerData);
             break;
+
+        case 'REMOVE_COLUMN_DATA':
+            newState = { ...state };
+            newState.headerDataSource = [...newState.headerDataSource];
+            newState.headerDataSource.splice(newState.headerDataSource.findIndex(i=>i.columnkey === action.payload.columnkey),1);
+        break;
 
         default:
             newState = state;

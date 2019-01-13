@@ -13,7 +13,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         populateGridSettings : () => (dispatch({ type: 'ADD_COLUMN_DATASET', payload: { headerDataSet: BlotterSettings.riskBS } })),
-        addColumnDataSet: headerDataSet => (dispatch({ type: 'ADD_COLUMN_DATASET', payload: { headerDataSet: headerDataSet } })),
         addColumnData: columnData => (dispatch({ type: 'ADD_COLUMN_DATA', payload: { headerData: columnData } }))
     }
 }

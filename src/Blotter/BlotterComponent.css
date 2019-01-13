@@ -1,7 +1,9 @@
 .gridViewContainer {
-    height: 92VH;
+    height: 90VH;
     overflow: scroll;
     margin-right: 16px;
+    margin-left: 16px;
+    border: 1px solid rgb(155, 155, 155);
 }
 
 .gridHeaderViewContainer {
@@ -11,16 +13,22 @@
     height: 2.5em;
     color: white;
     margin-right: 16px;
+    margin-left: 16px;
 }
 
 .gridRow {
     /* border: 1px solid rgb(240, 240, 240); */
-    height: 40px;
+    height: 35px;
     width: min-content;
+    display: flex;
+}
+
+.gridRow > div {
+    margin: auto 0;
 }
 
 .gridRow:nth-child(even) {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(245, 245, 245);
 }
 
 .gridCell {
@@ -32,6 +40,14 @@
     overflow: hidden;
     cursor: default;
     margin: auto 0 auto 0;
+}
+
+.greenCell {
+    color: green;
+}
+
+.redCell {
+    color: red;
 }
 
 .smoothScroller {

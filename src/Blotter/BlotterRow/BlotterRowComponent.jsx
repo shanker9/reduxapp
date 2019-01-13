@@ -14,30 +14,28 @@ export default class BlotterRowComponent extends Component {
         this.renderGridCell = this.renderGridCell.bind(this);
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return nextProps.rowState !== this.props.rowState;
-    }
-
     renderGridCell = (index, k) => {
-        return <BlotterCellContainer key={k} id={this.props.rowKey} columnconfig={this.props.headerData[index]}/>
+        return <BlotterCellContainer key={index} id={this.props.rowKey} columnconfig={this.props.headerData[index]}/>
     }
 
-    rowCellSizeGetter = (index) => {
+    rowCellSizeGetter = (index,cache) => {
         // console.log('cache size',cache);
-        return this.props.headerData[index].properties.columnWidth;
+        return  this.props.headerData[index].properties.columnWidth;
         // return 200;
     }
 
     render() {
         return <div className="gridRow">
+            <div>
             <ReactList ref='reactlist'
                 axis='x'
                 itemRenderer={this.renderGridCell}
                 length={this.props.headerData.length}
-                itemSizeGetter={this.rowCellSizeGetter}
+                itemSizeEstimator={this.rowCellSizeGetter}
                 type='variable'
-                /* threshold={5000} */
+                /* threshold={4000} */
             />
+            </div>
         </div>
     }
 }

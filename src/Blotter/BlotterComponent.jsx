@@ -21,8 +21,8 @@ export default class BlotterComponent extends Component {
         this.getAmpsData();
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return nextProps.gridDataSourceKeys !== this.props.gridDataSourceKeys;
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.gridDataSourceKeys !== this.props.gridDataSourceKeys || nextProps.gridHeaderData !== this.props.gridHeaderData;
     }
 
     getVisibleRange() {
@@ -51,7 +51,7 @@ export default class BlotterComponent extends Component {
         return <div>
             <div>Total Records :{this.dataSourceKeys.length}</div>
             <BlotterHeaderContainer />
-            <div className="smoothScroller"/>
+            {/* <div className="smoothScroller"/> */}
             <div id='grid_body_container' className="gridViewContainer" onScroll={this.handleScroll}>
                 <ReactList ref='reactlist'
                     itemRenderer={this.renderItemView}
