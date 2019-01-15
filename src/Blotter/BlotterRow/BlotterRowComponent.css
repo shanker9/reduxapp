@@ -1,0 +1,18 @@
+.gridRow {
+    /* border: 1px solid rgb(240, 240, 240); */
+    height: 35px;
+    width: min-content;
+    display: flex;
+}
+
+.gridRow > div {
+    margin: auto 0;
+}
+
+.gridRow:nth-child(even) {
+    background-color: rgb(245, 245, 245);
+}
+
+.row-selected {
+    background-color: #cfd2d4 !important;
+}

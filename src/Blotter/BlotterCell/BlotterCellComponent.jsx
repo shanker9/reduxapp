@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FORMAT_VALUE from './CellFormatters';
+import './BlotterCellComponent.css'
 
 export default class BlotterCellComponent extends Component {
     constructor(props){

@@ -1,0 +1,18 @@
+.gridCell {
+    background-color: inherit;
+    display: table-cell;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: default;
+    margin: auto 0 auto 0;
+}
+
+.greenCell {
+    color: green;
+}
+
+.redCell {
+    color: red;
+}

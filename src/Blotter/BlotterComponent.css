@@ -6,50 +6,6 @@
     border: 1px solid rgb(155, 155, 155);
 }
 
-.gridHeaderViewContainer {
-    overflow: hidden;
-    display: flex;
-    background-color: rgb(103, 155, 207);
-    height: 2.5em;
-    color: white;
-    margin-right: 16px;
-    margin-left: 16px;
-}
-
-.gridRow {
-    /* border: 1px solid rgb(240, 240, 240); */
-    height: 35px;
-    width: min-content;
-    display: flex;
-}
-
-.gridRow > div {
-    margin: auto 0;
-}
-
-.gridRow:nth-child(even) {
-    background-color: rgb(245, 245, 245);
-}
-
-.gridCell {
-    background-color: inherit;
-    display: table-cell;
-    /* min-width: 200px; */
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    cursor: default;
-    margin: auto 0 auto 0;
-}
-
-.greenCell {
-    color: green;
-}
-
-.redCell {
-    color: red;
-}
-
 .smoothScroller {
     z-index: 100;
     pointer-events: none; 

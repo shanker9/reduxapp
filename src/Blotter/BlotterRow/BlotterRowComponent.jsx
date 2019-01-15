@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import '../BlotterComponent.css';
+import './BlotterRowComponent.css';
 import ReactList from 'react-list';
 import BlotterCellContainer from '../BlotterCell/BlotterCellContainer';
 
 export default class BlotterRowComponent extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.rowStateData = null;
+        this.state = {
+            isSelected : this.props.rowState.isSelected
+        }
 
         /** Method bindings */
         this.renderGridCell = this.renderGridCell.bind(this);
@@ -21,11 +23,18 @@ export default class BlotterRowComponent extends Component {
     rowCellSizeGetter = (index,cache) => {
         // console.log('cache size',cache);
         return  this.props.headerData[index].properties.columnWidth;
-        // return 200;
+    }
+
+    rowSelect = () => {
+        this.props.rowSelected(this.props.rowKey,!this.state.isSelected)
+        this.setState({
+            isSelected : !this.state.isSelected
+        })
     }
 
     render() {
-        return <div className="gridRow">
+        const rowSelectClass = this.state.isSelected ? 'row-selected' : '';
+        return <div className={`gridRow ${rowSelectClass}`} onClick={this.rowSelect}>
             <div>
             <ReactList ref='reactlist'
                 axis='x'

@@ -6,7 +6,7 @@ let shouldRefresh = false;
 })();
 
 let newRowState;
-export const gridData = function (state = { dataSource: new Map(), dataSourceKeys : [] }, action) {
+export const gridData = function (state = { dataSource: new Map(), dataSourceKeys: [], selectedRows : new Map() }, action) {
     let newState;
     switch (action.type) {
         case 'INITIAL_SOW_DATA':
@@ -17,7 +17,7 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
             break;
 
         case 'UPDATE':
-            newState = shouldRefresh ?  {...state} : state;
+            newState = shouldRefresh ? { ...state } : state;
             // if(shouldRefresh){
             //     console.time('r');
             //     newState = {...state};
@@ -32,6 +32,19 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
 
             shouldRefresh = false;
             break;
+
+        case 'ROW_SELECTED':
+            newState = { ...state };
+            newRowState = { ...newState.dataSource.get(action.payload.rowKey) };
+            newRowState.isSelected = action.payload.isSelected;
+            newState.dataSource.set(action.payload.rowKey, newRowState);
+            
+            // adding to selectedRows map
+            if(action.payload.isSelected){
+                newState.selectedRows.set(newRowState.rowKey, newRowState);
+            }else{
+                newState.selectedRows.delete(newRowState.rowKey);
+            }
 
         default:
             newState = state;
@@ -57,8 +70,8 @@ export const gridHeaderData = function (state = { headerDataSource: [] }, action
         case 'REMOVE_COLUMN_DATA':
             newState = { ...state };
             newState.headerDataSource = [...newState.headerDataSource];
-            newState.headerDataSource.splice(newState.headerDataSource.findIndex(i=>i.columnkey === action.payload.columnkey),1);
-        break;
+            newState.headerDataSource.splice(newState.headerDataSource.findIndex(i => i.columnkey === action.payload.columnkey), 1);
+            break;
 
         default:
             newState = state;

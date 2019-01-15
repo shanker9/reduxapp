@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import ReactList from 'react-list';
-import '../BlotterComponent.css';
+import './BlotterHeaderComponent.css';
 
 export default class BlotterHeaderComponent extends Component {
     constructor() {
         super();
-
-        this.columnData = [
-            { columnkey: '_id', columnlabel: 'ID' },
-            { columnkey: 'index', columnlabel: 'Index' },
-            { columnkey: 'guid', columnlabel: 'GUID' },
-            { columnkey: 'isActive', columnlabel: 'IsActive' },
-            { columnkey: 'balance', columnlabel: 'Balance' },
-            { columnkey: 'picture', columnlabel: 'Picture' },
-            { columnkey: 'age', columnlabel: 'Age' },
-            { columnkey: 'eyeColor', columnlabel: 'EyeColor' }
-        ]
+        
         /** Method bindings */
         this.addColumnDataSet = this.addColumnDataSet.bind(this);
         this.addColumnData = this.addColumnData.bind(this);
