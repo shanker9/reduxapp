@@ -25,15 +25,20 @@ export default class BlotterRowComponent extends Component {
         return  this.props.headerData[index].properties.columnWidth;
     }
 
-    rowSelect = () => {
-        this.props.rowSelected(this.props.rowKey,!this.state.isSelected)
-        this.setState({
-            isSelected : !this.state.isSelected
-        })
+    rowSelect = (e) => {
+        if(e.ctrlKey){
+            this.props.rowSelected(this.props.rowKey,!this.props.rowState.isSelected,false)
+        }else{
+            this.props.rowSelected(this.props.rowKey,!this.props.rowState.isSelected,true)
+        }
+        // this.setState({
+        //     isSelected : !this.state.isSelected
+        // })
+
     }
 
     render() {
-        const rowSelectClass = this.state.isSelected ? 'row-selected' : '';
+        const rowSelectClass = this.props.rowState.isSelected ? 'row-selected' : '';
         return <div className={`gridRow ${rowSelectClass}`} onClick={this.rowSelect}>
             <div>
             <ReactList ref='reactlist'

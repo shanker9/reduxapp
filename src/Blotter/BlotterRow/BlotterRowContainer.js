@@ -11,8 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        rowSelected: (rowKey, isSelected) => {
-            dispatch({ type: 'ROW_SELECTED', payload: { rowKey: rowKey, isSelected : isSelected } });
+        rowSelected: (rowKey, isSelected, isSingleRowSelect) => {
+            dispatch({ type: 'ROW_SELECTED', payload: { rowKey: rowKey, isSelected : isSelected, isSingleRowSelect : isSingleRowSelect } });
         }
     }
 }

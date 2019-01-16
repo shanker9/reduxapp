@@ -5,8 +5,8 @@ let shouldRefresh = false;
     }, 150);
 })();
 
-let newRowState;
-export const gridData = function (state = { dataSource: new Map(), dataSourceKeys: [], selectedRows : new Map() }, action) {
+let newRowState, selectedRowState;
+export const gridData = function (state = { dataSource: new Map(), dataSourceKeys: [], selectedRows: new Map() }, action) {
     let newState;
     switch (action.type) {
         case 'INITIAL_SOW_DATA':
@@ -35,16 +35,45 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
 
         case 'ROW_SELECTED':
             newState = { ...state };
-            newRowState = { ...newState.dataSource.get(action.payload.rowKey) };
-            newRowState.isSelected = action.payload.isSelected;
-            newState.dataSource.set(action.payload.rowKey, newRowState);
-            
+
+
             // adding to selectedRows map
-            if(action.payload.isSelected){
-                newState.selectedRows.set(newRowState.rowKey, newRowState);
-            }else{
-                newState.selectedRows.delete(newRowState.rowKey);
+            if (action.payload.isSingleRowSelect) {
+                newState.selectedRows.forEach((rowState, rowKey) => {
+                    selectedRowState = { ...newState.dataSource.get(rowKey) };
+                    selectedRowState.isSelected = false;
+                    newState.dataSource.set(rowKey, selectedRowState);
+                })
+                newState.selectedRows.clear();
+
+                newRowState = { ...newState.dataSource.get(action.payload.rowKey) };
+                newRowState.isSelected = true;
+                newState.dataSource.set(action.payload.rowKey, newRowState);
+                newState.selectedRows.set(newRowState.rowKey, newRowState)
+            } else {
+                newRowState = { ...newState.dataSource.get(action.payload.rowKey) };
+                newRowState.isSelected = action.payload.isSelected;
+                newState.dataSource.set(action.payload.rowKey, newRowState);
+                action.payload.isSelected ? newState.selectedRows.set(action.payload.rowKey, newRowState)
+                    : newState.selectedRows.delete(action.payload.rowKey);
             }
+
+
+
+            // action.payload.isSelected ? newState.selectedRows.set(newRowState.rowKey, newRowState)
+            //     : newState.selectedRows.delete(newRowState.rowKey);
+
+
+
+            // if (action.payload.isSelected) {
+            //     newState.selectedRows.set(newRowState.rowKey, newRowState);
+            // } else {
+            //     if (action.payload.isSingleRowSelect) {
+            //         newState.selectedRows.clear();
+            //     }
+            //     newState.selectedRows.delete(newRowState.rowKey);
+            // }
+            break;
 
         default:
             newState = state;
