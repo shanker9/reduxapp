@@ -1,0 +1,29 @@
+.topNavBar {
+  /* font-family: var(--font-calibri); */
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  height: 60px;
+  .nav-buttons{
+    .header-nav{
+      display: flex;
+      li{
+        display: inline-block;
+        list-style: inherit;
+        padding: 8px 25px;
+        line-height: 1.6;
+        cursor: pointer;
+        text-align: center;
+        min-width: 50px;
+        position: relative;
+        div{
+          display: flex;
+          flex-flow: column;
+          i{
+            font-size: 23px;
+          }
+        }
+      }
+    }
+  }
+}

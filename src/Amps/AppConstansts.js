@@ -27,28 +27,50 @@ export default class AppConstants {
                 selectOptions: [
                     {value: 'global', label: 'Global', grouping: ['division', 'region', 'desk', 'product']},
                     {value: 'desk', label: 'Desk', grouping: ['desk', 'account', 'product']},
-                    {value: 'counterpary',label: 'Counterparty',grouping: ['counterparty', 'division', 'desk', 'product']},
+                    {
+                        value: 'counterpary',
+                        label: 'Counterparty',
+                        grouping: ['counterparty', 'division', 'desk', 'product']
+                    },
                     {value: 'exposureglobal', label: 'Exposure - Global', grouping: ['assetclass', 'underlier']},
-                    {value: 'exposurecounterpary',label: 'Exposure - Counterparty',grouping: ['counterparty', 'assetclass', 'underlier']},
-                    {value: 'exposuresector',label: 'Exposure - Sector',grouping: ['sector', 'industry', 'underlier']},
+                    {
+                        value: 'exposurecounterpary',
+                        label: 'Exposure - Counterparty',
+                        grouping: ['counterparty', 'assetclass', 'underlier']
+                    },
+                    {
+                        value: 'exposuresector',
+                        label: 'Exposure - Sector',
+                        grouping: ['sector', 'industry', 'underlier']
+                    },
                 ]
             }
         },
         positions: {
-            blotterMode:{
-                selectedOption: {value: 'default', label: 'Default', grouping: ['division', 'desk', 'account', 'symbol']},
+            blotterMode: {
+                selectedOption: {
+                    value: 'default',
+                    label: 'Default',
+                    grouping: ['division', 'desk', 'account', 'symbol']
+                },
                 selectOptions: [
                     {value: 'default', label: 'Default', grouping: ['division', 'desk', 'account', 'symbol']}
                 ]
             }
         },
         orders: {
-            blotterMode:{
+            blotterMode: {
                 selectedOption: {value: 'default', label: 'Default', grouping: ['account', 'symbol']},
                 selectOptions: [
                     {value: 'default', label: 'Default', grouping: ['account', 'symbol']}
                 ]
             }
         }
+    };
+
+    static NavigationKeys = {
+        RISK_VIEW: 'risk',
+        POSITION_VIEW: 'positions',
+        ORDERS_VIEW: 'orders'
     };
 }

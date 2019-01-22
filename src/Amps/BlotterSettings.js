@@ -667,7 +667,7 @@ export default class BlotterSettings {
             }
         }
     ];
-    static orderBS = [
+    static ordersBS = [
         {
             columnkey: "whatifentry",
             columnvalue: "WhatIf",

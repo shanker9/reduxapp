@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'qgraph';
+  src:  url('fonts/qgraph.eot?rheytp');
+  src:  url('fonts/qgraph.eot?rheytp#iefix') format('embedded-opentype'),
+    url('fonts/qgraph.ttf?rheytp') format('truetype'),
+    url('fonts/qgraph.woff?rheytp') format('woff'),
+    url('fonts/qgraph.svg?rheytp#qgraph') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="qgraph-"], [class*=" qgraph-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'qgraph' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.qgraph-chevron-right:before {
+  content: "\f054";
+}
+.qgraph-chevron-down:before {
+  content: "\f078";
+}
+.qgraph-filter:before {
+  content: "\f0b0";
+}
+.qgraph-theme:before {
+  content: "\e40a";
+}
+.qgraph-save:before {
+  content: "\e161";
+}
+.qgraph-workspace:before {
+  content: "\e8f1";
+}
+.qgraph-square:before {
+  content: "\e047";
+}
+.qgraph-undock:before {
+  content: "\ea25";
+}
+.qgraph-window-close:before {
+  content: "\e5cd";
+}
+.qgraph-window-maximize:before {
+  content: "\e3e0";
+}
+.qgraph-window-minimize:before {
+  content: "\e15b";
+}
+.qgraph-settings:before {
+  content: "\f013";
+}
+.qgraph-list:before {
+  content: "\f03a";
+}
+.qgraph-arrow-left:before {
+  content: "\f060";
+}
+.qgraph-arrow-right:before {
+  content: "\f061";
+}
+.qgraph-close:before {
+  content: "\e5c9";
+}
+.qgraph-position:before {
+  content: "\e900";
+}
+.qgraph-orders:before {
+  content: "\e901";
+}
+.qgraph-risk:before {
+  content: "\e902";
+}
+.qgraph-analytics:before {
+  content: "\e903";
+}
+.qgraph-pin:before {
+  content: "\e904";
+}
+.qgraph-unpin:before {
+  content: "\e905";
+}
+.qgraph-more:before {
+  content: "\f142";
+}

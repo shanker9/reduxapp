@@ -1,0 +1,19 @@
+.gridViewContainer {
+    height: 80vh;
+    overflow: scroll;
+    margin-right: 16px;
+    margin-left: 16px;
+    border: 1px solid rgb(155, 155, 155);
+    padding: 0 5px;
+}
+
+.smoothScroller {
+    z-index: 100;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    will-change: transform;
+}
