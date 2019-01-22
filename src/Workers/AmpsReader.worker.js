@@ -1,5 +1,5 @@
 /* eslint-disable */
-import AmpsControllerSingleton from '../Amps/AmpsController.js';
+import AmpsControllerSingleton from '../Network/AmpsController.js';
 
 let controller;
 (function () {

@@ -18,7 +18,7 @@ export default class BlotterComponent extends Component {
     }
 
     componentDidMount() {
-        //this.getAmpsData();
+        this.getAmpsData();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -40,7 +40,7 @@ export default class BlotterComponent extends Component {
     }
 
     getAmpsData() {
-        //this.props.subscribeToAmps();
+        this.props.subscribeToAmps();
     }
 
     renderItemView(index, k) {

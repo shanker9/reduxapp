@@ -11,7 +11,7 @@ export default class BlotterHeaderComponent extends Component {
     }
 
     componentDidMount() {
-        this.populateGridSettings();
+        // this.populateGridSettings();
         // this.addColumnDataSet(this.columnData);
         // this.addColumnData({ columnkey: 'Price', columnlabel: 'Price' })
     }

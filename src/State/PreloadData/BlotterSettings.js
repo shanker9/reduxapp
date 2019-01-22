@@ -1,6 +1,22 @@
-import AppConstants from './AppConstansts';
+// import AppConstants from './AppConstansts';
+
+const AppConstants = {
+    columntypes: {
+        NUMERIC_COLUMN: 'numeric',
+        STRING_COLUMN: 'string',
+        DATE_COLUMN: 'data'
+    },
+    columnformatter: {
+        NUMBER: 'number',
+        PRICE: 'price',
+        PERCENTAGE: 'percent',
+        DATE: 'data',
+        STRING: 'string'
+    }
+}
 
 export default class BlotterSettings {
+
     static riskBS = [
         {
             columnkey: "product",

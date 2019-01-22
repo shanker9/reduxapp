@@ -10,7 +10,7 @@ import RiskComponent from './RiskComponent'
 
 const mapStateToProps = (state) => {
     return {
-        gridData: state["riskGridData"],
+        gridData: state['risk'].gridData,
         navigation: state.navigation
     }
 };

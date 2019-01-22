@@ -2,13 +2,11 @@ import { connect } from 'react-redux';
 import BlotterRowComponent from './BlotterRowComponent';
 
 const mapStateToProps = (state, ownProps) => {
-    const gridData = `${ownProps.blotter}GridData`;
-    const headerData = `${ownProps.blotter}HeaderData`;
-
+    const stateVar = ownProps.blotter;
     return {
-        rowState: state[gridData].dataSource.get(ownProps.id),
+        rowState: state[stateVar].gridData.dataSource.get(ownProps.id),
         rowKey: ownProps.id,
-        headerData: state[headerData].headerDataSource,
+        headerData: state[stateVar].headerData.headerDataSource,
         blotter: ownProps.blotter
     }
 }

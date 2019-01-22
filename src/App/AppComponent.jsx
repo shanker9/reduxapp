@@ -3,7 +3,7 @@ import './App.scss';
 import RiskContainer from '../Components/RiskBlotter/RiskContainer';
 import PositionsContainer from '../Components/PostionBlotter/PositionsContainer';
 import OrdersContainer from '../Components/OrderBlotter/OrdersContainer';
-import AppConstants from "../Amps/AppConstansts";
+import AppConstants from "./Constants";
 import HeaderContainer from "./header/HeaderContainer";
 
 class AppComponent extends Component {

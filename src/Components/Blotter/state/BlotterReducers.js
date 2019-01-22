@@ -2,7 +2,7 @@ let shouldRefresh = false;
 (function () {
     setInterval(function () {
         shouldRefresh = true;
-    }, 150);
+    }, 100);
 })();
 
 let newRowState, selectedRowState;

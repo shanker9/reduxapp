@@ -1,5 +1,5 @@
 /* eslint-disable */
-import AmpsControllerSingleton from '../Amps/AmpsController.js';
+import AmpsControllerSingleton from '../Network/AmpsController.js';
 const WorkerThread = require('worker-loader!../Workers/AmpsReader.worker.js');
 // import Wrapper_pb from '../proto_js/Wrapper_pb';
 

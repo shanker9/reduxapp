@@ -2,10 +2,9 @@ import {connect} from 'react-redux';
 import BlotterCellComponent from './BlotterCellComponent';
 
 const mapStateToProps = (state, ownProps) =>  {
-    const gridData = `${ownProps.blotter}GridData`;
-
+    const stateVar = ownProps.blotter;
     return {
-        cellData : state[gridData].dataSource.get(ownProps.id).data[ownProps.columnconfig.columnvalue],
+        cellData : state[stateVar].gridData.dataSource.get(ownProps.id).data[ownProps.columnconfig.columnvalue],
         columnconfig : ownProps.columnconfig
     }
 };
