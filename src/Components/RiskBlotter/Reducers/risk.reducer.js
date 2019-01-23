@@ -11,25 +11,31 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
     switch (action.type) {
         case 'INITIAL_SOW_DATA':
             newState = { ...state }
-            console.log('payload', action.payload);
             newState.dataSource = action.payload;
             newState.dataSourceKeys = Array.from(newState.dataSource.keys());
             break;
 
         case 'UPDATE':
             newState = shouldRefresh ? { ...state } : state;
-            // if(shouldRefresh){
-            //     console.time('r');
-            //     newState = {...state};
-            // }else{
-            //     console.timeEnd('r');
-            //     newState = state;
-            // }
-            // newRowState = {...newState.dataSource.get(action.payload.rowKey)}
             newRowState = newState.dataSource.get(action.payload.rowKey)
-            newRowState.data = action.payload.data;
-            newState.dataSource.set(action.payload.rowKey, newRowState);
-
+            if (newRowState) {
+                newRowState.data = action.payload.data;
+                newState.dataSource.set(action.payload.rowKey, newRowState);
+            } else {
+                newState.dataSource.set(action.payload.rowKey,
+                    {
+                        rowKey: action.payload.rowKey,
+                        isAggregatedRow: true,
+                        data: action.payload.data,
+                        childData: new Map(),
+                        showChildData: false,
+                        isSelected: false,
+                        groupKey: null,
+                        grouplevel: 0
+                    }
+                )
+            }
+            
             shouldRefresh = false;
             break;
 
@@ -57,22 +63,6 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
                 action.payload.isSelected ? newState.selectedRows.set(action.payload.rowKey, newRowState)
                     : newState.selectedRows.delete(action.payload.rowKey);
             }
-
-
-
-            // action.payload.isSelected ? newState.selectedRows.set(newRowState.rowKey, newRowState)
-            //     : newState.selectedRows.delete(newRowState.rowKey);
-
-
-
-            // if (action.payload.isSelected) {
-            //     newState.selectedRows.set(newRowState.rowKey, newRowState);
-            // } else {
-            //     if (action.payload.isSingleRowSelect) {
-            //         newState.selectedRows.clear();
-            //     }
-            //     newState.selectedRows.delete(newRowState.rowKey);
-            // }
             break;
 
         default:

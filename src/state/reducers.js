@@ -3,9 +3,6 @@ import * as header from '../App/header/state/header.reducer'
 import { combineReducers } from 'redux';
 
 import * as BlotterReducers from '../Components/Blotter/Reducers/BlotterReducers';
-import * as RiskBlotterReducer from '../Components/RiskBlotter/Reducers/risk.reducer'
-import * as OrdersBlotterReducer from '../Components/OrderBlotter/Reducers/orders.reducer'
-import * as PositionsBlotterReducer from '../Components/PostionBlotter/Reducers/positions.reducer'
 
 
 const createFilteredReducer = (reducerFunction, reducerPredicate) => {

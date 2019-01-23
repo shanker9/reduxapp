@@ -11,7 +11,6 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
     switch (action.type) {
         case 'INITIAL_SOW_DATA':
             newState = { ...state }
-            console.log('payload', action.payload);
             newState.dataSource = action.payload;
             newState.dataSourceKeys = Array.from(newState.dataSource.keys());
             break;

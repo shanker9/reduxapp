@@ -2,9 +2,6 @@
 import { connect } from 'react-redux';
 import BlotterComponent from './BlotterComponent';
 import Actions from './Actions';
-const WorkerThread = require('worker-loader!../../Workers/blotterWorker');
-
-const workerThread = window.Worker ? new WorkerThread() : console.log('Web Workers not supported');
 
 const mapStateToProps = (state, ownProps) => {
     const stateVar = ownProps.blotter;
@@ -18,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         updateVisibleRange: range => {
-            workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
+            // workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
+            // TODO
         },
         connectToServer : ownProps.connectToServer,
         expandGroupedRow: () => {

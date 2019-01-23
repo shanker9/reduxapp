@@ -16,8 +16,6 @@ for (var item in serverconfig) {
     }
 }
 
-console.log('AMPS CONTROLLER');
-
 var ip = targetConfig.serverIP;
 var port = targetConfig.serverPort;
 
@@ -65,7 +63,6 @@ class AmpsController {
             (client, error) => {
                 // errorCallback(error);
                 if (reconnectionCount < 6) {
-                    console.log('Amps disconnected, Retrying to connect...', `Attempt ${reconnectionCount++}`);
                     this.ampsconnectionObjectForJson = setTimeout(this.connectToAmps, 3000);
                 }
             }
@@ -82,11 +79,9 @@ class AmpsController {
         this.ampsconnectionObjectForJson
             .then(() => {
                 ampsCommandObject = this.createAmpsCommand(commandObject);
-                console.log('sending subscription command');
                 return ampsClient.execute(ampsCommandObject, dataUpdateCallback);
 
             }).then((subId) => {
-                console.log("Subscription ID: " + subId);
                 subscriberInfoCallback(subId);
             })
     }
@@ -113,7 +108,6 @@ class AmpsController {
     unsubscribe(subId, successCallback, subscriptionColumnReference) {
         ampsClient.unsubscribe(subId)
             .then(() => {
-                console.log('Unsubscribed the subscription with ID : ' + subId);
                 if (successCallback) {
                     successCallback(subId, subscriptionColumnReference);
                 }
@@ -131,7 +125,6 @@ class AmpsController {
                 ampsCommandObject = this.createAmpsCommand(commandObject);
                 return ampsProtobufClient.execute(ampsCommandObject, dataUpdateCallback);
             }).then((subId) => {
-                console.log("Subscription ID: " + subId);
                 subscriberInfoCallback(subId);
             })
     }

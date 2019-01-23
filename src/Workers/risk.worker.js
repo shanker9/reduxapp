@@ -38,7 +38,6 @@ self.onmessage = function (event) {
 
         case 'updateVisibleRange':
             visibleRange = event.data.visibleRange;
-            console.log('New visible range', visibleRange);
             break;
 
         default:
@@ -203,7 +202,6 @@ let ampsMessageHandler = function (event) {
 };
 
 let printMsgPerSec = function () {
-    console.log(msgPerSec);
     msgPerSec = 0;
 }
 
@@ -299,7 +297,6 @@ let queryMessageHandlerJson = function (message) {
 };
 
 let subscriptionsDetailsMessageHandler = function (subId) {
-    console.log('Subscription id: ', subId);
     currentSubscriptionId = subId;
 };
 

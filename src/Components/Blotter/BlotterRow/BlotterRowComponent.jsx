@@ -21,7 +21,6 @@ export default class BlotterRowComponent extends Component {
     }
 
     rowCellSizeGetter = (index,cache) => {
-        // console.log('cache size',cache);
         return  this.props.headerData[index].properties.columnWidth;
     }
 
