@@ -27,9 +27,9 @@ export default class BlotterRowComponent extends Component {
 
     rowSelect = (e) => {
         if(e.ctrlKey){
-            this.props.rowSelected(this.props.rowKey,!this.props.rowState.isSelected,false)
+            this.props.rowSelected(this.props.blotter,this.props.rowKey,!this.props.rowState.isSelected,false)
         }else{
-            this.props.rowSelected(this.props.rowKey,!this.props.rowState.isSelected,true)
+            this.props.rowSelected(this.props.blotter,this.props.rowKey,!this.props.rowState.isSelected,true)
         }
         // this.setState({
         //     isSelected : !this.state.isSelected

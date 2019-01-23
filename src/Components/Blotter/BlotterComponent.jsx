@@ -22,7 +22,7 @@ export default class BlotterComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("Component : ",nextProps);
+        // console.log("Component : ",nextProps);
         return nextProps.gridData.dataSourceKeys !== this.props.gridData.dataSourceKeys || nextProps.gridHeaderData !== this.props.gridHeaderData;
     }
 
@@ -40,7 +40,7 @@ export default class BlotterComponent extends Component {
     }
 
     getAmpsData() {
-        this.props.subscribeToAmps();
+        this.props.subscribeToAmps(this.props.blotter);
     }
 
     renderItemView(index, k) {
@@ -48,7 +48,7 @@ export default class BlotterComponent extends Component {
     }
 
     render() {
-        console.log("Blotter Componnet : ",this.props);
+        // console.log("Blotter Componnet : ",this.props);
         this.dataSourceKeys = this.props.gridData.dataSourceKeys;
         return <div>
             <BlotterHeaderContainer blotter={this.props.blotter} />

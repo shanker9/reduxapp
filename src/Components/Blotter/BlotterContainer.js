@@ -1,7 +1,7 @@
 /* eslint-disable */
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import BlotterComponent from './BlotterComponent';
-
+import Actions from './Actions';
 const WorkerThread = require('worker-loader!../../Workers/blotterWorker');
 
 const workerThread = window.Worker ? new WorkerThread() : console.log('Web Workers not supported');
@@ -17,19 +17,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        divClick: randData => {
-            dispatch({type: 'RND', payload: {randData: randData}});
-        },
-        updateRandPrice: timestamp => {
-            dispatch({
-                type: 'RND_PRICE',
-                payload: {price: `$${(Math.random() * 3000).toFixed(2)}`, timestamp: timestamp}
-            })
-        },
         updateVisibleRange: range => {
-            workerThread.postMessage({type: 'updateVisibleRange', visibleRange: range});
+            workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
         },
-        subscribeToAmps: () => {
+        subscribeToAmps: (blotter) => {
             workerThread.postMessage({
                 type: 'newSubscription',
                 command: {
@@ -45,10 +36,12 @@ const mapDispatchToProps = (dispatch) => {
             workerThread.onmessage = (event) => {
                 switch (event.data.datatype) {
                     case 'sow_end':
-                        dispatch({type: 'INITIAL_SOW_DATA', payload: event.data.eventData});
+                        dispatch(Actions.INITIAL_SOW_DATA(blotter, event.data.eventData))
+                        // dispatch({ type: 'INITIAL_SOW_DATA', name: blotter, payload: event.data.eventData });
                         break;
                     case 'update':
-                        dispatch({type: 'UPDATE', payload: event.data.eventData});
+                        dispatch(Actions.ROW_UPDATE(blotter, event.data.eventData));
+                        // dispatch({ type: 'UPDATE', name: blotter, payload: event.data.eventData });
                         break;
                     default:
                         break;

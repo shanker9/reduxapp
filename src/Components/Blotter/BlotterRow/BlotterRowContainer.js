@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import BlotterRowComponent from './BlotterRowComponent';
+import Actions from '../Actions';
 
 const mapStateToProps = (state, ownProps) => {
     const stateVar = ownProps.blotter;
@@ -11,10 +12,10 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        rowSelected: (rowKey, isSelected, isSingleRowSelect) => {
-            dispatch({ type: 'ROW_SELECTED', payload: { rowKey: rowKey, isSelected : isSelected, isSingleRowSelect : isSingleRowSelect } });
+        rowSelected: (blotter, rowKey, isSelected, isSingleRowSelect) => {
+            dispatch(Actions.ROW_SELECTED(blotter, rowKey, isSelected, isSingleRowSelect));
         }
     }
 }
