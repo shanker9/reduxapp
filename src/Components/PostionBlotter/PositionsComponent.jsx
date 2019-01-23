@@ -3,6 +3,7 @@ import BlotterContainer from "../Blotter/BlotterContainer";
 
 export default class PositionsComponent extends React.Component {
     render() {
-        return <BlotterContainer blotter="positions" />
+        return <BlotterContainer blotter="positions"
+            connectToServer={this.props.subscribeToAmps} />
     }
 }

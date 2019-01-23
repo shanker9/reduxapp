@@ -9,7 +9,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        subscribeToAmps : ()=>{}
+    }
 };
 
 const PositionsContainer = connect(mapStateToProps, mapDispatchToProps)(PositionsComponent);

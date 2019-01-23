@@ -18,7 +18,10 @@ export default class BlotterComponent extends Component {
     }
 
     componentDidMount() {
-        this.getAmpsData();
+        if (this.props.gridData.dataSourceKeys.length === 0) {
+            this.getAmpsData();
+            console.log("Risk Component");
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -40,7 +43,8 @@ export default class BlotterComponent extends Component {
     }
 
     getAmpsData() {
-        this.props.subscribeToAmps(this.props.blotter);
+        // this.props.subscribeToAmps(this.props.blotter);
+        this.props.connectToServer(this.props.blotter);
     }
 
     renderItemView(index, k) {
