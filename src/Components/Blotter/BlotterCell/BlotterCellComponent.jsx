@@ -16,7 +16,7 @@ export default class BlotterCellComponent extends Component {
     }
 
     render() {
-        return <div className={`gridCell ${this.colorClass}`} style={{maxWidth : this.props.columnconfig.properties.columnWidth, minWidth : this.props.columnconfig.properties.columnWidth}}>
+        return <div className={`gridCell ${this.props.columnconfig.properties.styleClass} ${this.colorClass}`} style={{maxWidth : this.props.columnconfig.properties.columnWidth, minWidth : this.props.columnconfig.properties.columnWidth}}>
             {FORMAT_VALUE(this.props.cellData, this.columnformatter)}
         </div>
     }
