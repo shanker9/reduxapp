@@ -1,12 +1,12 @@
 .gridHeaderViewContainer {
     overflow: hidden;
     display: flex;
-    background-color: rgb(103, 155, 207);
+    background-color: rgb(125, 186, 247);
     height: 2.5em;
     color: white;
-    margin-right: 16px;
-    margin-left: 16px;
     padding: 0 5px;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .gridCell {

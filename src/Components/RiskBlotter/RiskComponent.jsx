@@ -7,6 +7,7 @@ export default class RiskComponent extends React.Component {
 
     render() {
         return <BlotterContainer blotter="risk"
-        connectToServer={this.props.subscribeToAmps} />
+        connectToServer={this.props.subscribeToAmps}
+        visibleRangeUpdates={this.props.visibleRangeUpdates} />
     }
 }

@@ -14,10 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        updateVisibleRange: range => {
-            // workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
-            // TODO
-        },
+        visibleRangeUpdates: ownProps.visibleRangeUpdates,
         connectToServer : ownProps.connectToServer,
         expandGroupedRow: () => {
 

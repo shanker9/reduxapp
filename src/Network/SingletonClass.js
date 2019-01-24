@@ -19,8 +19,12 @@ class SingletonClass {
         // this.blotter = blotter;
         // this.subscribeToAmps = this.subscribeToAmps.bind(this);
         // this.Actions = actions
-        this.storeReference = store
+        this._store = store
         this.workerThread = window.Worker ? new WorkerThread() : console.log('Web Workers not supported');
+    }
+
+    updateVisibleRange(workerReference,range){
+        this.workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
     }
 
     subscribeToAmps(blotter, Actions, query = {
@@ -40,11 +44,11 @@ class SingletonClass {
         this.workerThread.onmessage = (event) => {
             switch (event.data.datatype) {
                 case 'sow_end':
-                    that.storeReference.dispatch(Actions.INITIAL_SOW_DATA(blotter, event.data.eventData))
+                    that._store.dispatch(Actions.INITIAL_SOW_DATA(blotter, event.data.eventData))
                     // dispatch({ type: 'INITIAL_SOW_DATA', name: blotter, payload: event.data.eventData });
                     break;
                 case 'update':
-                    that.storeReference.dispatch(Actions.ROW_UPDATE(blotter, event.data.eventData));
+                    that._store.dispatch(Actions.ROW_UPDATE(blotter, event.data.eventData));
                     // dispatch({ type: 'UPDATE', name: blotter, payload: event.data.eventData });
                     break;
                 default:

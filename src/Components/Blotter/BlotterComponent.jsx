@@ -38,7 +38,9 @@ export default class BlotterComponent extends Component {
         document.getElementById('grid_header_container').scrollLeft = document.getElementById('grid_body_container').scrollLeft;
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
-            this.props.updateVisibleRange(this.getVisibleRange())
+            if (this.props.visibleRangeUpdates) {
+                this.props.visibleRangeUpdates(this.getVisibleRange())
+            }
         }, 150);
     }
 
@@ -51,20 +53,29 @@ export default class BlotterComponent extends Component {
         return <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index]} />
     }
 
+    noDataView() {
+        return <div className="gridBody">
+            <span className="nodata-grid">No Data to show</span>
+        </div>
+    }
+
     render() {
         // console.log("Blotter Componnet : ",this.props);
         this.dataSourceKeys = this.props.gridData.dataSourceKeys;
-        return <div>
+        return <div className="grid">
             <BlotterHeaderContainer blotter={this.props.blotter} />
             {/* <div className="smoothScroller"/> */}
-            <div id='grid_body_container' className="gridViewContainer" onScroll={this.handleScroll}>
-                <ReactList ref='reactlist'
-                    itemRenderer={this.renderItemView}
-                    length={this.dataSourceKeys.length}
-                    /* minSize={30} */
-                    type='uniform'
-                />
-            </div>
+            {
+                this.dataSourceKeys.length === 0 ? this.noDataView() :
+                    <div id='grid_body_container' className="gridBody" onScroll={this.handleScroll}>
+                        <ReactList ref='reactlist'
+                            itemRenderer={this.renderItemView}
+                            length={this.dataSourceKeys.length}
+                            /* minSize={30} */
+                            type='uniform'
+                        />
+                    </div>
+                    }
         </div>
     }
-}
+            }

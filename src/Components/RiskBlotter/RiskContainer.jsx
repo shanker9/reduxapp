@@ -16,17 +16,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        divClick: randData => {
-            dispatch({ type: 'RND', payload: { randData: randData } });
-        },
-        updateRandPrice: timestamp => {
-            dispatch({
-                type: 'RND_PRICE',
-                payload: { price: `$${(Math.random() * 3000).toFixed(2)}`, timestamp: timestamp }
-            })
-        },
-        updateVisibleRange: range => {
-            workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
+        visibleRangeUpdates: range => {
+            const ampsInstance = AmpsConnector.getInstance();
+            ampsInstance.updateVisibleRange(undefined,range);
+            // workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
         },
         subscribeToAmps: (blotter) => {
             const ampsInstance = AmpsConnector.getInstance();
