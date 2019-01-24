@@ -7,9 +7,6 @@ import AppConstants from "./Constants";
 import HeaderContainer from "./header/HeaderContainer";
 
 class AppComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     renderBlotter() {
         let html = <div>No default blotter set</div>;

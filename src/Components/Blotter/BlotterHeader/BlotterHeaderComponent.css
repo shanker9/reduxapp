@@ -4,18 +4,10 @@
     background-color: rgb(125, 186, 247);
     height: 2.5em;
     color: white;
-    padding: 0 5px;
     font-weight: 600;
     font-size: 14px;
 }
 
-.gridCell {
-    background-color: inherit;
-    display: table-cell;
-    user-select: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    cursor: default;
-    margin: auto 0 auto 0;
+.gridHeaderCell {
+    border-right: 1px solid lightgray !important;
 }

@@ -5,7 +5,6 @@ const mapStateToProps = (state, ownProps) => {
     const stateVar = ownProps.blotter;
     return {
         blotter: stateVar,
-        gridData: state[stateVar].gridData,
         gridHeaderData: state[stateVar].headerData
     }
 }
