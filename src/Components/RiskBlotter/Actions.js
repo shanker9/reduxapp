@@ -30,5 +30,13 @@ export default class Actions {
         }
     }
 
+    static NEW_ROWS_UPDATE = (blotter, data) => {
+        return {
+            type: 'NEW_ROWS_UPDATE',
+            name: blotter,
+            payload: data
+        }
+    }
+
 }
 

@@ -54,7 +54,7 @@ export default class BlotterComponent extends Component {
     }
 
     noDataView() {
-        return <div className="gridBody">
+        return <div className="gridBody stylishScroller">
             <span className="nodata-grid">No Data to show</span>
         </div>
     }
@@ -67,7 +67,7 @@ export default class BlotterComponent extends Component {
             {/* <div className="smoothScroller"/> */}
             {
                 this.dataSourceKeys.length === 0 ? this.noDataView() :
-                    <div id='grid_body_container' className="gridBody" onScroll={this.handleScroll}>
+                    <div id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleScroll}>
                         <ReactList ref='reactlist'
                             itemRenderer={this.renderItemView}
                             length={this.dataSourceKeys.length}

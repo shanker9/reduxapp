@@ -34,6 +34,12 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
             shouldRefresh = false;
             break;
 
+        case 'NEW_ROWS_UPDATE':
+            newState = { ...state }
+            action.payload.forEach((d, k) => newState.dataSource.set(k, d));
+            newState.dataSourceKeys = Array.from(newState.dataSource.keys());
+            break;
+
         case 'ROW_SELECTED':
             newState = { ...state };
             // adding to selectedRows map

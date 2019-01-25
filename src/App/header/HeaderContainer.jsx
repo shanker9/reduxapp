@@ -4,7 +4,8 @@ import HeaderComponent from './HeaderComponent';
 
 const mapStateToProps = (state) => {
     return {
-        navigation: state.navigation
+        navigation: state.navigation,
+        dataCount : new Map(state.navigation.navLinks.map(n => [n.key,state[n.key].gridData.dataSource.size]))
     }
 };
 

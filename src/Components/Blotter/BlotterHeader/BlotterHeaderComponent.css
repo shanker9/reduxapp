@@ -1,16 +1,21 @@
 body {
-    --headerRowColor: rgb(125, 186, 247);
+    --headerRowColor: rgb(73, 156, 239);
 }
 
 
 .gridHeaderViewContainer {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     display: flex;
     background-color: var(--headerRowColor);
     height: 2.5em;
-    color: white;
+    color: #f7f7f7;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
+}
+
+.gridHeaderViewContainer::-webkit-scrollbar {
+    width: 20px;
 }
 
 .gridHeaderCell {

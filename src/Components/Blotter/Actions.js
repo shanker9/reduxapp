@@ -29,6 +29,5 @@ export default class Actions {
             payload: data
         }
     }
-
 }
 

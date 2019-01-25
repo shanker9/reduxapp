@@ -20,7 +20,7 @@ export default class HeaderComponent extends React.Component {
                 onClick={() => this.setBlotter(item.key)}>
                 <div>
                     <i className={item.icon}></i>
-                    <span>{item.label}</span>
+                    <span>{item.label} ({this.props.dataCount.get(item.key)})</span>
                 </div>
                 {item.enableClose === true ? <span className="qgraph-close" onClick={(e) => {
                     e.stopPropagation();

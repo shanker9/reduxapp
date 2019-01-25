@@ -23,7 +23,7 @@ class SingletonClass {
         this.workerThread = window.Worker ? new WorkerThread() : console.log('Web Workers not supported');
     }
 
-    updateVisibleRange(workerReference,range){
+    updateVisibleRange(workerReference, range) {
         this.workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
     }
 
@@ -49,6 +49,10 @@ class SingletonClass {
                     break;
                 case 'update':
                     that._store.dispatch(Actions.ROW_UPDATE(blotter, event.data.eventData));
+                    // dispatch({ type: 'UPDATE', name: blotter, payload: event.data.eventData });
+                    break;
+                case 'newaggrows_update':
+                    that._store.dispatch(Actions.NEW_ROWS_UPDATE(blotter, event.data.eventData));
                     // dispatch({ type: 'UPDATE', name: blotter, payload: event.data.eventData });
                     break;
                 default:

@@ -1,3 +1,8 @@
+body {
+    --scroller-bg : #f7f7f7;
+    --scroller-thumb : rgba(73, 156, 239, 0.85);
+}
+
 .grid {
     margin-right: 16px;
     margin-left: 16px;
@@ -7,8 +12,84 @@
     height: 80vh;
     overflow: scroll;
     border: 1px solid rgb(155, 155, 155);
+    border-top: 0px;
     display: flex;
 }
+
+/** Scrollbar**/
+
+.stylishScroller::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+}
+
+.stylishScroller::-webkit-scrollbar-track:vertical {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background: rgb(230, 230, 230);
+    background-clip: content-box;
+}
+
+.stylishScroller::-webkit-scrollbar-track:horizontal {
+    margin-left: 15px;
+    margin-right: 15px;
+    background: rgb(230, 230, 230);
+    background-clip: content-box;
+}
+
+ .stylishScroller::-webkit-scrollbar-thumb:vertical {
+    border-left: 4px solid lightgrey;
+    border-right: 4px solid lightgrey;
+    background: var(--scroller-thumb);
+    border-radius: 5px;
+  }
+  
+  .stylishScroller::-webkit-scrollbar-thumb:horizontal {
+    background: var(--scroller-thumb);
+  }
+
+
+  .stylishScroller::-webkit-scrollbar-button {
+    height: 10px;
+  }
+
+  .stylishScroller::-webkit-scrollbar-thumb:vertical {
+    background: var(--scroller-thumb);
+    border-radius: 5px;
+  }
+  
+  .stylishScroller::-webkit-scrollbar-thumb:horizontal {
+    background: var(--scroller-thumb);
+  }
+  
+  .stylishScroller::-webkit-scrollbar-corner {
+    background-color: var(--scroller-bg);
+  }
+  
+  .stylishScroller::-webkit-scrollbar-thumb:vertical {
+    border-left: 4px solid var(--scroller-bg);
+    border-right: 4px solid var(--scroller-bg);
+  }
+  
+  .stylishScroller::-webkit-scrollbar-thumb:horizontal {
+    border-top: 4px solid var(--scroller-bg);
+    border-bottom: 4px solid var(--scroller-bg);
+  }
+  
+  .stylishScroller::-webkit-scrollbar {
+    background-color: var(--scroller-bg);
+  }
+  
+  .stylishScroller::-webkit-scrollbar-track:vertical {
+    border-left: 8px solid var(--scroller-bg);
+    border-right: 8px solid var(--scroller-bg);
+  }
+  
+  .stylishScroller::-webkit-scrollbar-track:horizontal {
+    border-top: 8px solid var(--scroller-bg);
+    border-bottom: 8px solid var(--scroller-bg);
+  }
+
 
 .nodata-grid {
     margin: auto auto;
