@@ -1,7 +1,12 @@
+body {
+    --headerRowColor: rgb(125, 186, 247);
+}
+
+
 .gridHeaderViewContainer {
     overflow: hidden;
     display: flex;
-    background-color: rgb(125, 186, 247);
+    background-color: var(--headerRowColor);
     height: 2.5em;
     color: white;
     font-weight: 600;
@@ -9,5 +14,28 @@
 }
 
 .gridHeaderCell {
-    border-right: 1px solid lightgray !important;
+    display: flex !important;
+    background-color: inherit;
+    border-right-color: lightgrey;
+}
+
+.resizeable-cell {
+    position: relative;
+    resize: horizontal;
+    overflow: hidden;
+    background-color: inherit;
+}
+
+.resizeable-cell:after {
+    position: absolute;       
+    right: -9px;
+    top: -8px;
+    width: 18px;
+    height: 35px;
+    text-align: center;
+    z-index: 99;
+    cursor: col-resize;    
+    content: '.';
+    color: var(--headerRowColor);
+    background-color: inherit;
 }

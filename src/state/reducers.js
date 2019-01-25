@@ -19,15 +19,15 @@ const index = {
     navigation: header.navigation,
     orders: combineReducers({
         gridData: createFilteredReducer(BlotterReducers.gridData, action => action.name === 'orders'),
-        headerData: BlotterReducers.gridHeaderData,
+        headerData: createFilteredReducer(BlotterReducers.gridHeaderData, action => action.name === 'orders'),
     }),
     risk: combineReducers({
         gridData: createFilteredReducer(BlotterReducers.gridData, action => action.name === 'risk'),
-        headerData: BlotterReducers.gridHeaderData,
+        headerData: createFilteredReducer(BlotterReducers.gridHeaderData, action => action.name === 'risk'),
     }),
     positions: combineReducers({
         gridData: createFilteredReducer(BlotterReducers.gridData, action => action.name === 'positions'),
-        headerData: BlotterReducers.gridHeaderData,
+        headerData: createFilteredReducer(BlotterReducers.gridHeaderData, action => action.name === 'positions'),
     })
 };
 

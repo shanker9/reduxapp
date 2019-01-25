@@ -85,6 +85,14 @@ export const gridHeaderData = function (state = { headerDataSource: [] }, action
             newState.headerDataSource.splice(newState.headerDataSource.findIndex(i => i.columnkey === action.payload.columnkey), 1);
             break;
 
+        case 'UPDATE_COLUMN_DATA':
+            newState = { ...state };
+            let columnData = {...newState.headerDataSource.find(colData => colData.columnkey === action.payload.columnkey)};
+            const columnIndex = newState.headerDataSource.findIndex(colData => colData.columnkey === action.payload.columnkey);
+            columnData.properties = Object.assign({}, columnData.properties, action.payload.changeData);
+            newState.headerDataSource.splice(columnIndex, 1);
+            newState.headerDataSource.splice(columnIndex, 0, columnData);
+
         default:
             newState = state;
             break;
