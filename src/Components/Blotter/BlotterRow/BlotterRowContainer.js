@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         rowState: state[stateVar].gridData.dataSource.get(ownProps.id),
         rowKey: ownProps.id,
-        headerData: state[stateVar].headerData.headerDataSource,
+        headerData: state[stateVar].headerData,
         blotter: ownProps.blotter
     }
 }

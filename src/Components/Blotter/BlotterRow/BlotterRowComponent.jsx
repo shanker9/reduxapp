@@ -16,12 +16,8 @@ export default class BlotterRowComponent extends Component {
         this.renderGridCell = this.renderGridCell.bind(this);
     }
 
-    renderGridCell = (index, k) => {
-        return <BlotterCellContainer blotter={this.props.blotter} key={index} id={this.props.rowKey} columnconfig={this.props.headerData[index]}/>
-    }
-
     rowCellSizeGetter = (index) => {
-        return  this.props.headerData[index].properties.columnWidth;
+        return  this.props.headerData.headerDataSource.get(this.props.headerData.headerDataSourceKeys[index]).properties.columnWidth;
     }
 
     rowSelect = (e) => {
@@ -36,6 +32,10 @@ export default class BlotterRowComponent extends Component {
 
     }
 
+    renderGridCell = (index, k) => {
+        return <BlotterCellContainer blotter={this.props.blotter} key={index} id={this.props.rowKey} columnconfig={this.props.headerData.headerDataSource.get(this.props.headerData.headerDataSourceKeys[index])}/>
+    }
+
     render() {
         const rowSelectClass = this.props.rowState.isSelected ? 'row-selected' : '';
         return <div className={`gridRow ${rowSelectClass}`} onClick={this.rowSelect}>
@@ -43,7 +43,7 @@ export default class BlotterRowComponent extends Component {
             <ReactList ref='reactlist'
                 axis='x'
                 itemRenderer={this.renderGridCell}
-                length={this.props.headerData.length}
+                length={this.props.headerData.headerDataSourceKeys.length}
                 itemSizeGetter={this.rowCellSizeGetter}
                 type='variable'
                 /* threshold={4000} */

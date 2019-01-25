@@ -57,7 +57,7 @@ export default class BlotterHeaderComponent extends Component {
 
     render() {
         return <div id='grid_header_container' key={9999} className="gridHeaderViewContainer">
-            {this.props.gridHeaderData.headerDataSource.map((val, i) => <HeaderCell val={val} key={i} cellResize={this.updateColumnData} />)}
+            {Array.from(this.props.gridHeaderData.headerDataSource).map((val, i) => <HeaderCell val={val[1]} key={i} cellResize={this.updateColumnData} />)}
         </div>
     }
 }

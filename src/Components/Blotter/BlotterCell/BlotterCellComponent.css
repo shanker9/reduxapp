@@ -7,8 +7,7 @@
     cursor: default;
     margin: auto 0 auto 0;
     background-color: inherit;
-    border-right: 1px solid lightgrey;
-    border-right-color: inherit;
+    border-right: 1px solid rgba(211, 211, 211, 0);
 }
 
 .greenCell {

@@ -19,6 +19,10 @@ body {
     border-right-color: lightgrey;
 }
 
+.gridHeaderCell > .gridCell {
+    border-right: 1px solid lightgrey;
+}
+
 .resizeable-cell {
     position: relative;
     resize: horizontal;

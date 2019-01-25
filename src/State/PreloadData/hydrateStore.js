@@ -1,15 +1,24 @@
 import BlotterSettings from './BlotterSettings'
 
 const initialData = () => {
+
+    const headerDataFromSettings = (settings) => {
+        const m = new Map(settings.map(i => [i.columnkey, i]))
+        return {
+            headerDataSource: m,
+            headerDataSourceKeys: Array.from(m.keys())
+        }
+    }
+
     return {
         orders: {
-            headerData: { headerDataSource: BlotterSettings.ordersBS }
+            headerData: headerDataFromSettings(BlotterSettings.ordersBS)
         },
         positions: {
-            headerData: { headerDataSource: BlotterSettings.positionsBS }
+            headerData: headerDataFromSettings(BlotterSettings.positionsBS)
         },
         risk: {
-            headerData: { headerDataSource: BlotterSettings.riskBS }
+            headerData: headerDataFromSettings(BlotterSettings.riskBS)
         }
     }
 }

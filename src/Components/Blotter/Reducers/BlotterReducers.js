@@ -65,33 +65,36 @@ export const gridData = function (state = { dataSource: new Map(), dataSourceKey
     return newState;
 }
 
-export const gridHeaderData = function (state = { headerDataSource: [] }, action) {
+export const gridHeaderData = function (state = { headerDataSource: new Map(), headerDataSourceKeys: [] }, action) {
     let newState;
     switch (action.type) {
         case 'ADD_COLUMN_DATASET':
             newState = { ...state };
             newState.headerDataSource = action.payload.headerDataSet;
+            newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
             break;
 
         case 'ADD_COLUMN_DATA':
             newState = { ...state };
             newState.headerDataSource = [...newState.headerDataSource];
-            newState.headerDataSource.push(action.payload.headerData);
+            newState.headerDataSource.set(action.payload.headerData.columnkey, action.payload.headerData);
+            newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
             break;
 
         case 'REMOVE_COLUMN_DATA':
             newState = { ...state };
             newState.headerDataSource = [...newState.headerDataSource];
-            newState.headerDataSource.splice(newState.headerDataSource.findIndex(i => i.columnkey === action.payload.columnkey), 1);
+            newState.headerDataSource.delete(action.payload.columnkey);
+            newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
             break;
 
         case 'UPDATE_COLUMN_DATA':
             newState = { ...state };
-            let columnData = {...newState.headerDataSource.find(colData => colData.columnkey === action.payload.columnkey)};
-            const columnIndex = newState.headerDataSource.findIndex(colData => colData.columnkey === action.payload.columnkey);
+            let columnData = { ...newState.headerDataSource.get(action.payload.columnkey) };
             columnData.properties = Object.assign({}, columnData.properties, action.payload.changeData);
-            newState.headerDataSource.splice(columnIndex, 1);
-            newState.headerDataSource.splice(columnIndex, 0, columnData);
+            newState.headerDataSource.set(columnData.columnkey, columnData)
+            newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
+            break;
 
         default:
             newState = state;
