@@ -13,6 +13,10 @@
     background-color: rgb(245, 245, 245);
 }
 
+.gridRow:hover {
+    background-color: rgb(235, 235, 235);
+}
+
 .row-selected {
-    background-color: #cfd2d4 !important;
+    background-color: rgb(180, 210, 255) !important;
 }

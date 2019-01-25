@@ -28,3 +28,16 @@ export default function FORMAT_VALUE(value, type) {
             return value;
     }
 }
+
+export const ChangeClasses = {
+    NUMERIC_CELL : {
+        greenCell : `gridCell numericCell greenCell`,
+        redCell : `gridCell numericCell redCell`,
+        noChange : `gridCell numericCell`
+    },
+    STRING_CELL : {
+        greenCell : `gridCell stringCell greenCell`,
+        redCell : `gridCell stringCell redCell`,
+        noChange : `gridCell stringCell`
+    }
+}
