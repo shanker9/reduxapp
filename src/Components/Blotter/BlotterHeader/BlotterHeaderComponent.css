@@ -3,12 +3,9 @@ body {
     --headerRowHeight : 2.5em;
 }
 
-
 .gridHeaderViewContainer {
     overflow-x: hidden;
     overflow-y: scroll;
-    /* margin-right: 21px; */
-    /* margin-left: 1px; */
     display: flex;
     background-color: var(--headerRowColor);
     height: var(--headerRowHeight);
@@ -36,6 +33,14 @@ body {
 
 .gridHeaderCell > .gridCell {
     border-right: 1px solid lightgrey;
+}
+
+.headerCellReorderChosen {
+    background-color: #3f79b3;
+}
+
+.headerCellReorderGhost {
+    background-color: #3f79b3;
 }
 
 .resizeable-cell {

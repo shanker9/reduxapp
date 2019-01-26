@@ -58,14 +58,19 @@ export default class BlotterHeaderComponent extends Component {
     }
 
     listChangeHandler(order, sortable, event) {
-        console.log('Reordered Columns',order);
         this.props.reorderColumnData(order);
     }
 
     render() {
         return <div ref={this.props.headerRef} id='grid_header_container' key={9999} className="gridHeaderViewContainer" onScroll={this.props.onScrollHandler}>
             <Sortable tag='div'
-                options={{ scrollSensitivity: 30, scrollSpeed: 50, animation: 150, filter: '.groupExpansionHeaderBox' }}
+                options={{
+                     scrollSensitivity: 30,
+                      scrollSpeed: 50,
+                      ghostClass : 'headerCellReorderGhost',
+                      chosenClass : 'headerCellReorderChosen',
+                       animation: 150,
+                        filter: '.groupExpansionHeaderBox' }}
                 onChange={this.listChangeHandler}>
                 {Array.from(this.props.gridHeaderData.headerDataSource).map((val, i) => <HeaderCell val={val[1]} key={i} cellResize={this.updateColumnData} />)}
             </Sortable>

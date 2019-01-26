@@ -5,6 +5,10 @@ import './BlotterCellComponent.css'
 export default class BlotterCellComponent extends Component {
     constructor(props) {
         super(props);
+        this.setCache(props);
+    }
+
+    setCache(props) {
         this.columnformatter = props.columnconfig.properties.columnformatter;
         this.ChangeClasses = props.columnconfig.properties.styleClass === 'numericCell' ? ChangeClasses.NUMERIC_CELL : ChangeClasses.STRING_CELL;
         this.colorClass = this.ChangeClasses.noChange;
@@ -12,9 +16,7 @@ export default class BlotterCellComponent extends Component {
 
     componentWillReceiveProps(nextProps, nextState) {
         if (this.props.columnconfig.properties.columnformatter !== nextProps.columnconfig.properties.columnformatter) {
-            this.ChangeClasses = nextProps.columnconfig.properties.styleClass === 'numericCell' ? ChangeClasses.NUMERIC_CELL : ChangeClasses.STRING_CELL;
-            this.columnformatter = nextProps.columnconfig.properties.columnformatter;
-            this.colorClass = this.ChangeClasses.noChange;
+            this.setCache(nextProps);
         } else {
             if (this.columnformatter === 'price') {
                 this.colorClass = nextProps.cellData === this.props.cellData ?
