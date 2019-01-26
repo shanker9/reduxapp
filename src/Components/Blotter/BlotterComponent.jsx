@@ -49,7 +49,7 @@ export default class BlotterComponent extends Component {
             if (this.props.visibleRangeUpdates) {
                 this.props.visibleRangeUpdates(this.getVisibleRange())
             }
-        }, 150);
+        }, 200);
     }
 
     handleHeaderScroll() {
@@ -75,7 +75,8 @@ export default class BlotterComponent extends Component {
     }
 
     renderItemView(index, k) {
-        return index === 0 ? <div key={index} className='smoothScrollForDraggableElementsInHeader smoothScroller' /> : <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index - 1]} />
+        // return index === 0 ? <div key={index} className='smoothScrollForDraggableElementsInHeader smoothScroller' /> : <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index - 1]} />
+        return <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index]} />
     }
 
     noDataView() {
@@ -93,7 +94,7 @@ export default class BlotterComponent extends Component {
                     <div ref={this.bodyDiv} id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleBodyScroll}>
                         <ReactList ref='reactlist'
                             itemRenderer={this.renderItemView}
-                            length={this.dataSourceKeys.length + 1}
+                            length={this.dataSourceKeys.length}
                             /* minSize={30} */
                             type='uniform'
                         />

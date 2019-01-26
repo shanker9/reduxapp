@@ -10,7 +10,7 @@
 }
 
 .gridRow:nth-child(even) {
-    background-color: rgba(157, 164, 171, 0.09);
+    background-color: rgba(45, 95, 146, 0.09);
 }
 
 .gridRow:hover {
