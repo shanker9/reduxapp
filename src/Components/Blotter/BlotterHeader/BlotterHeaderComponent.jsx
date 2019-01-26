@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ResizeObserver from 'react-resize-observer';
+import Sortable from 'react-sortablejs';
 import './BlotterHeaderComponent.css';
 
 
 export const HeaderCell = (props) => {
-    return <div className={`gridHeaderCell`}>
-        <div className={`gridCell`} >
+    return <div key={props.val.columnkey} data-id={props.val.columnkey} className={'gridHeaderCell'}>
+        <div className={'gridCell'} >
             <div className={`resizeable-cell ${props.val.properties.styleClass}`} style={{ width: props.val.properties.columnWidth - 1 }}>
                 <ResizeObserver onResize={rect => props.cellResize(props.val.columnkey, rect)} />
                 {props.val.displayname}
@@ -24,6 +25,7 @@ export default class BlotterHeaderComponent extends Component {
         this.addColumnDataSet = this.addColumnDataSet.bind(this);
         this.addColumnData = this.addColumnData.bind(this);
         this.updateColumnData = this.updateColumnData.bind(this);
+        this.listChangeHandler = this.listChangeHandler.bind(this);
     }
 
     componentDidMount() {
@@ -52,12 +54,21 @@ export default class BlotterHeaderComponent extends Component {
             }
             console.log('Resized cell width', rect.width);
             this.props.updateColumnData(columnkey, changeObject);
-        }, 200);
+        }, 150);
+    }
+
+    listChangeHandler(order, sortable, event) {
+        console.log('Reordered Columns',order);
+        this.props.reorderColumnData(order);
     }
 
     render() {
-        return <div id='grid_header_container' key={9999} className="gridHeaderViewContainer">
-            {Array.from(this.props.gridHeaderData.headerDataSource).map((val, i) => <HeaderCell val={val[1]} key={i} cellResize={this.updateColumnData} />)}
+        return <div ref={this.props.headerRef} id='grid_header_container' key={9999} className="gridHeaderViewContainer" onScroll={this.props.onScrollHandler}>
+            <Sortable tag='div'
+                options={{ scrollSensitivity: 30, scrollSpeed: 50, animation: 150, filter: '.groupExpansionHeaderBox' }}
+                onChange={this.listChangeHandler}>
+                {Array.from(this.props.gridHeaderData.headerDataSource).map((val, i) => <HeaderCell val={val[1]} key={i} cellResize={this.updateColumnData} />)}
+            </Sortable>
         </div>
     }
 }

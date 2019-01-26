@@ -96,9 +96,16 @@ export const gridHeaderData = function (state = { headerDataSource: new Map(), h
 
         case 'UPDATE_COLUMN_DATA':
             newState = { ...state };
-            let columnData = { ...newState.headerDataSource.get(action.payload.columnkey) };
+            const columnData = { ...newState.headerDataSource.get(action.payload.columnkey) };
             columnData.properties = Object.assign({}, columnData.properties, action.payload.changeData);
             newState.headerDataSource.set(columnData.columnkey, columnData)
+            newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
+            break;
+
+        case 'REORDER_COLULMN_DATASET':
+            newState = { ...state };
+            const newHeaderDataSource = new Map(action.payload.map(i => [i, newState.headerDataSource.get(i)]))
+            newState.headerDataSource = newHeaderDataSource;
             newState.headerDataSourceKeys = Array.from(newState.headerDataSource.keys());
             break;
 

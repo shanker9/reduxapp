@@ -1,25 +1,35 @@
 body {
     --headerRowColor: rgb(73, 156, 239);
+    --headerRowHeight : 2.5em;
 }
 
 
 .gridHeaderViewContainer {
     overflow-x: hidden;
     overflow-y: scroll;
+    /* margin-right: 21px; */
+    /* margin-left: 1px; */
     display: flex;
     background-color: var(--headerRowColor);
-    height: 2.5em;
+    height: var(--headerRowHeight);
     color: #f7f7f7;
     font-weight: 600;
     font-size: 13px;
+    position: relative;
+    z-index: 100;
 }
 
 .gridHeaderViewContainer::-webkit-scrollbar {
     width: 20px;
 }
 
+.gridHeaderViewContainer > div {
+    display: flex;
+    background-color: inherit;
+}
+
 .gridHeaderCell {
-    display: flex !important;
+    display: flex;
     background-color: inherit;
     border-right-color: lightgrey;
 }

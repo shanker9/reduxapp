@@ -2,6 +2,22 @@
 
 export default class Actions {
 
+    static INITIAL_SOW_DATA = (blotter, data) => {
+        return {
+            type: 'INITIAL_SOW_DATA',
+            name: blotter,
+            payload: data
+        }
+    }
+
+    static ROW_UPDATE = (blotter, data) => {
+        return {
+            type: 'ROW_UPDATE',
+            name: blotter,
+            payload: data
+        }
+    }
+
     static ROW_SELECTED = (blotter, rowKey, isSelected, isSingleRowSelect) => {
         return {
             type: 'ROW_SELECTED',
@@ -14,17 +30,9 @@ export default class Actions {
         }
     }
 
-    static INITIAL_SOW_DATA = (blotter, data) => {
+    static REORDER_COLULMN_DATASET = (blotter, data) => {
         return {
-            type: 'INITIAL_SOW_DATA',
-            name: blotter,
-            payload: data
-        }
-    }
-
-    static ROW_UPDATE = (blotter, data) => {
-        return {
-            type: 'ROW_UPDATE',
+            type: 'REORDER_COLULMN_DATASET',
             name: blotter,
             payload: data
         }

@@ -11,10 +11,16 @@ export default class BlotterComponent extends Component {
         this.dataSource = null;
         this.dataSourceKeys = null;
 
+        this.headerDiv = null;
+        this.bodyDiv = React.createRef();
+        this.isSyncingHeaderScroll = false;
+        this.isSyncingBodyScroll = false;
+
         /** Method bindings */
         this.getAmpsData = this.getAmpsData.bind(this);
         this.renderItemView = this.renderItemView.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
+        this.handleHeaderScroll = this.handleHeaderScroll.bind(this);
+        this.handleBodyScroll = this.handleBodyScroll.bind(this);
     }
 
     componentDidMount() {
@@ -34,8 +40,10 @@ export default class BlotterComponent extends Component {
         return this.dataSourceKeys.slice(visibleRange[0], visibleRange[1] + 1);
     }
 
+    /** Scroll Event Handlers */
+    /** Tying Body Div scroll with header and vice versa */
+
     handleScroll() {
-        document.getElementById('grid_header_container').scrollLeft = document.getElementById('grid_body_container').scrollLeft;
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
             if (this.props.visibleRangeUpdates) {
@@ -44,38 +52,53 @@ export default class BlotterComponent extends Component {
         }, 150);
     }
 
+    handleHeaderScroll() {
+        if (!this.isSyncingHeaderScroll) {
+            this.isSyncingBodyScroll = true;
+            this.bodyDiv.current.scrollLeft = this.headerDiv.scrollLeft;
+        }
+        this.isSyncingHeaderScroll = false;
+    }
+
+    handleBodyScroll() {
+        this.handleScroll();
+        if (!this.isSyncingBodyScroll) {
+            this.isSyncingHeaderScroll = true;
+            this.headerDiv.scrollLeft = this.bodyDiv.current.scrollLeft;
+        }
+        this.isSyncingBodyScroll = false;
+    }
+
+
     getAmpsData() {
-        // this.props.subscribeToAmps(this.props.blotter);
         this.props.connectToServer(this.props.blotter);
     }
 
     renderItemView(index, k) {
-        return <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index]} />
+        return index === 0 ? <div key={index} className='smoothScrollForDraggableElementsInHeader smoothScroller' /> : <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index - 1]} />
     }
 
     noDataView() {
-        return <div className="gridBody stylishScroller">
+        return <div ref={this.bodyDiv} id='grid_body_container' className="gridBody stylishScroller">
             <span className="nodata-grid">No Data to show</span>
         </div>
     }
 
     render() {
-        // console.log("Blotter Componnet : ",this.props);
         this.dataSourceKeys = this.props.gridData.dataSourceKeys;
         return <div className="grid">
-            <BlotterHeaderContainer blotter={this.props.blotter} />
-            {/* <div className="smoothScroller"/> */}
+            <BlotterHeaderContainer headerRef={ref => this.headerDiv = ref} blotter={this.props.blotter} onScrollHandler={this.handleHeaderScroll} />
             {
                 this.dataSourceKeys.length === 0 ? this.noDataView() :
-                    <div id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleScroll}>
+                    <div ref={this.bodyDiv} id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleBodyScroll}>
                         <ReactList ref='reactlist'
                             itemRenderer={this.renderItemView}
-                            length={this.dataSourceKeys.length}
+                            length={this.dataSourceKeys.length + 1}
                             /* minSize={30} */
                             type='uniform'
                         />
                     </div>
-                    }
+            }
         </div>
     }
-            }
+}

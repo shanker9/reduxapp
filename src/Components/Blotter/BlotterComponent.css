@@ -9,11 +9,19 @@ body {
 }
 
 .gridBody {
-    height: 80vh;
+    height: 85vh;
     overflow: scroll;
     border: 1px solid rgb(155, 155, 155);
     border-top: 0px;
     display: flex;
+    margin-top : calc(var(--headerRowHeight)* -1);
+}
+
+.smoothScrollForDraggableElementsInHeader {
+  height: var(--headerRowHeight);
+  background-color: var(--headerRowColor);
+  width : stretch;
+  pointer-events: none;  
 }
 
 /** Scrollbar**/
@@ -100,7 +108,7 @@ body {
 .smoothScroller {
     z-index: 100;
     pointer-events: none;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
