@@ -14,7 +14,7 @@ let currentSubscriptionId, controller, fullDataMap, tempDataMap, updateSet, visi
     controller = AmpsControllerSingleton.getInstance();
 })();
 
-const sampleWorker = new WorkerThread();
+let sampleWorker = new WorkerThread();
 
 self.onmessage = function (event) {
 
@@ -22,7 +22,11 @@ self.onmessage = function (event) {
 
     switch (event.data.type) {
         case 'newSubscription':
-            if (currentSubscriptionId) controller.unsubscribe(currentSubscriptionId);
+            if (currentSubscriptionId) { 
+                console.log('Unsubscribing to current subscription');
+                sampleWorker.postMessage({type:'unsubscribe'});
+            }
+            sampleWorker = new WorkerThread();
             messageHandler = event.data.isGroupedView ? ampsAggregateMessageHandler : ampsMessageHandler;
             bookmark = event.data.command.bookmark;
             sampleWorker.onmessage = messageHandler;
@@ -47,8 +51,13 @@ self.onmessage = function (event) {
 
 let timer, updateTimer;
 let msgPerSec, val, newVal, lastMessage, counter = 0, counterPerSec = 0;
-let ampsAggregateMessageHandler = function (message) {
+let ampsAggregateMessageHandler = function (event) {
 
+    if(event.data.type === 'subId'){ 
+        currentSubscriptionId = event.data.subId;
+        return;
+    }
+    const message = event.data.message
     switch (message.c) {
         case 'group_begin':
             fullDataMap.clear();
@@ -123,7 +132,10 @@ let ampsMessageHandler = function (event) {
 
     if (event.data.type === 'u') {
         processUpdates(event.data.updates);
-    } else {
+    } else if (event.data.type === 'subId'){
+        currentSubscriptionId = event.data.subId
+    }
+    else {
         message = event.data.message;
         switch (message.c) {
             case 'group_begin':

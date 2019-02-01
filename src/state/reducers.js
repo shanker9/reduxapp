@@ -24,6 +24,7 @@ const index = {
     risk: combineReducers({
         gridData: createFilteredReducer(BlotterReducers.gridData, action => action.name === 'risk'),
         headerData: createFilteredReducer(BlotterReducers.gridHeaderData, action => action.name === 'risk'),
+        queryData : createFilteredReducer(BlotterReducers.queryData, action => action.name === 'risk'),
     }),
     positions: combineReducers({
         gridData: createFilteredReducer(BlotterReducers.gridData, action => action.name === 'positions'),

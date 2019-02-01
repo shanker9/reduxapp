@@ -115,3 +115,19 @@ export const gridHeaderData = function (state = { headerDataSource: new Map(), h
     }
     return newState;
 }
+
+export const queryData = function (state = { queryCommand: {} }, action) {
+    let newState;
+    switch (action.type) {
+        case 'UPDATE_QUERY':
+            newState = { ...state };
+            newState.queryCommand = action.payload.query;
+            break;
+
+
+        default:
+            newState = state;
+            break;
+    }
+    return newState;
+}

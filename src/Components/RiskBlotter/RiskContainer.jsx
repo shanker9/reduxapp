@@ -10,6 +10,7 @@ import RiskComponent from './RiskComponent'
 const mapStateToProps = (state) => {
     return {
         gridData: state['risk'].gridData,
+        queryData : state['risk'].queryData,
         navigation: state.navigation
     }
 };
@@ -19,11 +20,10 @@ const mapDispatchToProps = (dispatch) => {
         visibleRangeUpdates: range => {
             const ampsInstance = AmpsConnector.getInstance();
             ampsInstance.updateVisibleRange(undefined,range);
-            // workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
         },
-        subscribeToAmps: (blotter) => {
+        subscribeToAmps: (blotter, query) => {
             const ampsInstance = AmpsConnector.getInstance();
-            ampsInstance.subscribeToAmps(blotter, Actions, undefined)
+            ampsInstance.subscribeToAmps(blotter, Actions, query)
         }
     }
 };

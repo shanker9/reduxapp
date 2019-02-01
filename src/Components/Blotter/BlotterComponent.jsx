@@ -11,8 +11,10 @@ export default class BlotterComponent extends Component {
         this.dataSource = null;
         this.dataSourceKeys = null;
 
-        this.headerDiv = null;
-        this.bodyDiv = React.createRef();
+        this.headerDivRef = null;
+        this.bodyDivRef = React.createRef();
+        this.virtualizeComponentRef = React.createRef();
+
         this.isSyncingHeaderScroll = false;
         this.isSyncingBodyScroll = false;
 
@@ -24,10 +26,10 @@ export default class BlotterComponent extends Component {
     }
 
     componentDidMount() {
-        if (this.props.gridData.dataSourceKeys.length === 0) {
-            this.getAmpsData();
-            console.log("Risk Component");
-        }
+        // if (this.props.gridData.dataSourceKeys.length === 0) {
+        //     this.getAmpsData();
+        //     console.log("Risk Component");
+        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -36,7 +38,7 @@ export default class BlotterComponent extends Component {
     }
 
     getVisibleRange() {
-        const visibleRange = this.refs.reactlist.getVisibleRange();
+        const visibleRange = this.virtualizeComponentRef.current.getVisibleRange();
         return this.dataSourceKeys.slice(visibleRange[0], visibleRange[1] + 1);
     }
 
@@ -55,7 +57,7 @@ export default class BlotterComponent extends Component {
     handleHeaderScroll() {
         if (!this.isSyncingHeaderScroll) {
             this.isSyncingBodyScroll = true;
-            this.bodyDiv.current.scrollLeft = this.headerDiv.scrollLeft;
+            this.bodyDivRef.current.scrollLeft = this.headerDivRef.scrollLeft;
         }
         this.isSyncingHeaderScroll = false;
     }
@@ -64,7 +66,7 @@ export default class BlotterComponent extends Component {
         this.handleScroll();
         if (!this.isSyncingBodyScroll) {
             this.isSyncingHeaderScroll = true;
-            this.headerDiv.scrollLeft = this.bodyDiv.current.scrollLeft;
+            this.headerDivRef.scrollLeft = this.bodyDivRef.current.scrollLeft;
         }
         this.isSyncingBodyScroll = false;
     }
@@ -80,7 +82,7 @@ export default class BlotterComponent extends Component {
     }
 
     noDataView() {
-        return <div ref={this.bodyDiv} id='grid_body_container' className="gridBody stylishScroller">
+        return <div ref={this.bodyDivRef} id='grid_body_container' className="gridBody stylishScroller">
             <span className="nodata-grid">No Data to show</span>
         </div>
     }
@@ -88,11 +90,11 @@ export default class BlotterComponent extends Component {
     render() {
         this.dataSourceKeys = this.props.gridData.dataSourceKeys;
         return <div className="grid">
-            <BlotterHeaderContainer headerRef={ref => this.headerDiv = ref} blotter={this.props.blotter} onScrollHandler={this.handleHeaderScroll} />
+            <BlotterHeaderContainer headerRef={ref => this.headerDivRef = ref} blotter={this.props.blotter} onScrollHandler={this.handleHeaderScroll} />
             {
                 this.dataSourceKeys.length === 0 ? this.noDataView() :
-                    <div ref={this.bodyDiv} id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleBodyScroll}>
-                        <ReactList ref='reactlist'
+                    <div ref={this.bodyDivRef} id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleBodyScroll}>
+                        <ReactList ref={this.virtualizeComponentRef}
                             itemRenderer={this.renderItemView}
                             length={this.dataSourceKeys.length}
                             /* minSize={30} */

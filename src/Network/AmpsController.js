@@ -56,6 +56,17 @@ class AmpsController {
         this.ampsconnectionObjectForProtobuf = undefined;
     }
 
+    connectToAmps() {
+        ampsClient.connect(ampsServerUriForJson)
+            .then((connectionObject) => {
+                return connectionObject;
+            });
+    }
+
+    disconnectFromAmps() {
+        ampsClient.disconnect()
+    }
+
     connectAndSubscribe(dataUpdateCallback, subscriberInfoCallback, commandObject, successCallback, errorCallback) {
         let ampsCommandObject;
 
@@ -98,12 +109,6 @@ class AmpsController {
             })
     }
 
-    connectToAmps() {
-        ampsClient.connect(ampsServerUriForJson)
-            .then((connectionObject) => {
-                return connectionObject;
-            });
-    }
 
     unsubscribe(subId, successCallback, subscriptionColumnReference) {
         ampsClient.unsubscribe(subId)

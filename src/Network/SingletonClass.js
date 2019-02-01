@@ -27,14 +27,9 @@ class SingletonClass {
         this.workerThread.postMessage({ type: 'updateVisibleRange', visibleRange: range });
     }
 
-    subscribeToAmps(blotter, Actions, query = {
-        command: 'sow_and_delta_subscribe',
-        topic: 'ProductUI',
-        filter: "(/Account LIKE '.')",
-        orderby: "/Division",
-        options: "max_backlog=50,grouping=[/Division],projection=[COUNT_DISTINCT(/Product) AS /ProductCount,/WhatIf,/Product,/Account,/Desk,/Region,/Quantity,/Division,/Counterparty,/Vertex,/PayCurrency,/PayDiscountCurve,MAX(/LastUpdated) As /LastUpdated,/PayNotional,/ReceiveCurrency,/ReceiveDiscountCurve,/ReceiveIndex,/ReceiveNotional,SUM(/Price) As /Price,SUM(/PayLeg) As /PayLeg,SUM(/ReceiveLeg) As /ReceiveLeg,SUM(/Rho10bps) AS /Rho10bps,SUM(/Theta1d) AS /Theta1d,SUM(/Delta1pct) AS /Delta1pct,SUM(/Gamma1pct) AS /Gamma1pct,SUM(/Vega1pt) AS /Vega1pt,/PayFixedRate,/MaturityDate,/ContractSize],no_empties,conflation=300ms"
-    }) {
+    subscribeToAmps(blotter, Actions, query ) {
         const that = this;
+        if(!query) return;
         this.workerThread.postMessage({
             type: 'newSubscription',
             command: query,
