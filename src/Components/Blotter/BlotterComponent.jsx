@@ -18,8 +18,25 @@ export default class BlotterComponent extends Component {
         this.isSyncingHeaderScroll = false;
         this.isSyncingBodyScroll = false;
 
+        this.state = {
+            groupingColumnConfig: {
+                columnkey: "groupingColumn",
+                columnvalue: "GroupingColumn",
+                displayname: '.',
+                properties: {
+                    isSortable: false,
+                    columnType: 'string',
+                    columnformatter: 'number',
+                    columnWidth: 220,
+                    styleClass: 'stringCell',
+                    filter: false
+                }
+            },
+            changeFlag: false
+        }
+
         /** Method bindings */
-        this.getAmpsData = this.getAmpsData.bind(this);
+        this.groupingCellResize = this.groupingCellResize.bind(this);
         this.renderItemView = this.renderItemView.bind(this);
         this.handleHeaderScroll = this.handleHeaderScroll.bind(this);
         this.handleBodyScroll = this.handleBodyScroll.bind(this);
@@ -34,7 +51,9 @@ export default class BlotterComponent extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         // console.log("Component : ",nextProps);
-        return nextProps.gridData.dataSourceKeys !== this.props.gridData.dataSourceKeys || nextProps.gridHeaderData !== this.props.gridHeaderData;
+        return this.state.changeFlag !== nextState.changeFlag ||
+            nextProps.gridData.dataSourceKeys !== this.props.gridData.dataSourceKeys ||
+            nextProps.gridHeaderData !== this.props.gridHeaderData;
     }
 
     getVisibleRange() {
@@ -71,14 +90,15 @@ export default class BlotterComponent extends Component {
         this.isSyncingBodyScroll = false;
     }
 
-
-    getAmpsData() {
-        this.props.connectToServer(this.props.blotter);
+    groupingCellResize(columnkey, changeObject) {
+        console.log('new size', changeObject.columnWidth);
+        const groupingColumnConfigCopy = { ...this.state.groupingColumnConfig };
+        groupingColumnConfigCopy.properties.columnWidth = changeObject.columnWidth;
+        this.setState({ groupingColumnConfig: groupingColumnConfigCopy, changeFlag: !this.state.changeFlag });
     }
 
     renderItemView(index, k) {
-        // return index === 0 ? <div key={index} className='smoothScrollForDraggableElementsInHeader smoothScroller' /> : <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index - 1]} />
-        return <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index]} />
+        return <BlotterRowContainer blotter={this.props.blotter} key={index} id={this.dataSourceKeys[index]} groupingColumnConfig={this.state.groupingColumnConfig} />
     }
 
     noDataView() {
@@ -90,7 +110,11 @@ export default class BlotterComponent extends Component {
     render() {
         this.dataSourceKeys = this.props.gridData.dataSourceKeys;
         return <div className="grid">
-            <BlotterHeaderContainer headerRef={ref => this.headerDivRef = ref} blotter={this.props.blotter} onScrollHandler={this.handleHeaderScroll} />
+            <BlotterHeaderContainer headerRef={ref => this.headerDivRef = ref}
+                blotter={this.props.blotter}
+                groupingColumnConfig={this.state.groupingColumnConfig}
+                onScrollHandler={this.handleHeaderScroll}
+                groupingCellResize={this.groupingCellResize} />
             {
                 this.dataSourceKeys.length === 0 ? this.noDataView() :
                     <div ref={this.bodyDivRef} id='grid_body_container' className="gridBody stylishScroller" onScroll={this.handleBodyScroll}>

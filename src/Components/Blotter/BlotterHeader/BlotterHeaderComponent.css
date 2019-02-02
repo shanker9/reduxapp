@@ -31,7 +31,14 @@ body {
     border-right-color: lightgrey;
 }
 
-.gridHeaderCell > .gridCell {
+.groupingHeaderCell {
+    display: flex;
+    background-color: lightgrey;
+    border-right-color: lightgrey;
+    color: var(--headerRowColor);
+}
+
+.gridHeaderCell > .gridCell, .groupingHeaderCell > .gridCell {
     border-right: 1px solid lightgrey;
 }
 
@@ -41,6 +48,10 @@ body {
 
 .headerCellReorderGhost {
     background-color: #3f79b3;
+}
+
+#groupingHeaderCell {
+    color: var(--headerRowColor);
 }
 
 .resizeable-cell {
